@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  chiliz-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: chiliz-mcp-server
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      # Optional: Mount for persistent cache
+      - chiliz-cache:/app/.cache
+    networks:
+      - chiliz-network
+
+networks:
+  chiliz-network:
+    driver: bridge
+
+volumes:
+  chiliz-cache:
+    driver: local
