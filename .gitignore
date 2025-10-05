@@ -49,3 +49,4 @@ wallet.json
 # Vercel
 .vercel/
 landing-page/.vercel/
+.vercel
