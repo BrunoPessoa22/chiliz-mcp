@@ -1,20 +1,32 @@
 {
   "name": "chiliz-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for interacting with Chiliz blockchain and fan token data",
+  "version": "1.0.0",
+  "description": "Advanced MCP server for Chiliz blockchain with Brazilian tokens, FanX DEX, analytics & transactions",
   "main": "dist/index.js",
   "type": "module",
+  "bin": {
+    "chiliz-mcp": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "jest",
     "clean": "rm -rf dist",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run test && npm run build"
   },
-  "keywords": ["mcp", "chiliz", "blockchain", "fan-tokens", "sports"],
-  "author": "",
+  "keywords": ["mcp", "chiliz", "blockchain", "fan-tokens", "sports", "brazil", "fanx", "dex", "defi"],
+  "author": "Bruno Pessoa",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrunoPessoa22/chiliz-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BrunoPessoa22/chiliz-mcp/issues"
+  },
+  "homepage": "https://landing-page-jbipc15u2-bruno-pessoas-projects.vercel.app",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "axios": "^1.7.2",
