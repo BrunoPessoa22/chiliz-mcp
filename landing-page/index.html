@@ -17,6 +17,9 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 
@@ -119,8 +122,8 @@
                     </svg>
                 </div>
                 <div class="hero-badge">
-                    <span class="badge-icon">🚀</span>
-                    <span>MCP v0.1.0 - Production Ready</span>
+                    <span class="badge-icon"><i data-lucide="rocket" style="width: 16px; height: 16px;"></i></span>
+                    <span>MCP v1.0.0 - Production Ready</span>
                 </div>
                 <h1 class="hero-title">
                     Professional <span class="gradient-text">Chiliz MCP</span> Server
@@ -305,7 +308,7 @@
                 </div>
 
                 <div class="dex-card">
-                    <div class="dex-icon">📊</div>
+                    <div class="dex-icon"><i data-lucide="bar-chart-3" style="width: 24px; height: 24px;"></i></div>
                     <h3>Pool Analytics</h3>
                     <ul class="dex-list">
                         <li>Historical TVL charts</li>
@@ -316,7 +319,7 @@
                 </div>
 
                 <div class="dex-card">
-                    <div class="dex-icon">⚡</div>
+                    <div class="dex-icon"><i data-lucide="zap" style="width: 24px; height: 24px;"></i></div>
                     <h3>LP Management</h3>
                     <ul class="dex-list">
                         <li>Add/remove liquidity</li>
@@ -350,42 +353,42 @@
             </div>
             <div class="advantages-grid">
                 <div class="advantage-item">
-                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-icon"><i data-lucide="check-circle" style="width: 20px; height: 20px; color: #4CAF50;"></i></div>
                     <div class="advantage-content">
                         <h4>Transaction Ready</h4>
                         <p>Not just read-only - execute real transactions</p>
                     </div>
                 </div>
                 <div class="advantage-item">
-                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-icon"><i data-lucide="check-circle" style="width: 20px; height: 20px; color: #4CAF50;"></i></div>
                     <div class="advantage-content">
                         <h4>Sports Specific</h4>
                         <p>Tailored for fan token ecosystem</p>
                     </div>
                 </div>
                 <div class="advantage-item">
-                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-icon"><i data-lucide="check-circle" style="width: 20px; height: 20px; color: #4CAF50;"></i></div>
                     <div class="advantage-content">
                         <h4>Production Ready</h4>
                         <p>Error handling, caching, rate limiting</p>
                     </div>
                 </div>
                 <div class="advantage-item">
-                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-icon"><i data-lucide="check-circle" style="width: 20px; height: 20px; color: #4CAF50;"></i></div>
                     <div class="advantage-content">
                         <h4>Type Safe</h4>
                         <p>100% TypeScript with strict typing</p>
                     </div>
                 </div>
                 <div class="advantage-item">
-                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-icon"><i data-lucide="check-circle" style="width: 20px; height: 20px; color: #4CAF50;"></i></div>
                     <div class="advantage-content">
                         <h4>Multi-Source Data</h4>
                         <p>CoinGecko, RPC, Social APIs integrated</p>
                     </div>
                 </div>
                 <div class="advantage-item">
-                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-icon"><i data-lucide="check-circle" style="width: 20px; height: 20px; color: #4CAF50;"></i></div>
                     <div class="advantage-content">
                         <h4>Advanced Analytics</h4>
                         <p>Whale tracking, velocity, patterns</p>
@@ -695,7 +698,7 @@ const sentiment = await client.callTool('get_social_sentiment', {
 
 console.log(`Overall Sentiment: ${sentiment.overall.sentiment}`);
 console.log(`Total Mentions: ${sentiment.overall.totalMentions}`);
-console.log(`Trending: ${sentiment.trending ? '🔥 YES' : 'No'}`);</code></pre>
+console.log(`Trending: ${sentiment.trending ? 'YES (HOT)' : 'No'}`);</code></pre>
                             <button class="copy-btn" onclick="copyCode(this)">
                                 <i class="fas fa-copy"></i>
                             </button>
@@ -936,7 +939,7 @@ console.log(`Trending: ${sentiment.trending ? '🔥 YES' : 'No'}`);</code></pre>
 
             <!-- European Tokens -->
             <div class="token-category">
-                <h3>⚽ European Football Clubs</h3>
+                <h3><i data-lucide="trophy" style="width: 20px; height: 20px; vertical-align: middle;"></i> European Football Clubs</h3>
                 <div class="tokens-grid">
                     <div class="token-item">
                         <span class="token-symbol">PSG</span>
@@ -975,7 +978,7 @@ console.log(`Trending: ${sentiment.trending ? '🔥 YES' : 'No'}`);</code></pre>
 
             <!-- Other Categories -->
             <div class="token-category">
-                <h3>🏆 Sports & Esports</h3>
+                <h3><i data-lucide="gamepad-2" style="width: 20px; height: 20px; vertical-align: middle;"></i> Sports & Esports</h3>
                 <div class="tokens-grid">
                     <div class="token-item">
                         <span class="token-symbol">UFC</span>
@@ -1075,7 +1078,7 @@ console.log(`Trending: ${sentiment.trending ? '🔥 YES' : 'No'}`);</code></pre>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Chiliz MCP. Built with ❤️ for the Chiliz community</p>
+                <p>&copy; 2025 Chiliz MCP. Built with <i data-lucide="heart" style="width: 16px; height: 16px; color: #EE2E37; vertical-align: middle;"></i> for the Chiliz community</p>
             </div>
         </div>
     </footer>
