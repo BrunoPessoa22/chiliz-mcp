@@ -295,7 +295,7 @@ body {
     margin-bottom: 3rem;
 }
 
-.btn {
+.btn, a.btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -307,6 +307,7 @@ body {
     border: none;
     cursor: pointer;
     font-size: 1rem;
+    color: inherit;
 }
 
 .btn-primary {
