@@ -186,8 +186,7 @@ docker run -d --name chiliz-mcp -p 3000:3000 chiliz-mcp
 
 ## 📖 Documentation
 
-Full documentation available at: https://landing-page-qb3two7mv-bruno-pessoas-projects.vercel.app
-(Note: Requires Vercel authentication - click "Continue with Vercel" to access)
+Full documentation available at: https://chiliz-mcp.vercel.app
 
 ### Example Usage
 
@@ -230,7 +229,7 @@ MIT License - see [LICENSE](LICENSE) file
 
 - [Chiliz Chain](https://chiliz.com)
 - [FanX DEX](https://fanx.chiliz.com)
-- [Documentation](https://landing-page-qb3two7mv-bruno-pessoas-projects.vercel.app)
+- [Documentation](https://chiliz-mcp.vercel.app)
 - [Discord Community](https://discord.gg/chiliz)
 - [Report Issues](https://github.com/BrunoPessoa22/chiliz-mcp/issues)
 
