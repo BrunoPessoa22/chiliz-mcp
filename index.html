@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiliz MCP - Advanced Blockchain Tools for Fan Tokens</title>
+    <meta name="description" content="Professional MCP server for Chiliz blockchain integration. Real-time prices, analytics, transactions, and sports correlation tools.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Ccircle cx='256' cy='256' r='250' fill='%23EE2E37'/%3E%3Cg transform='translate(256, 256)'%3E%3Cpath d='M -60,-80 C -90,-80 -110,-60 -110,-30 L -110,30 C -110,60 -90,80 -60,80 L 30,80 L 30,50 L -50,50 C -70,50 -80,40 -80,20 L -80,-20 C -80,-40 -70,-50 -50,-50 L 30,-50 L 30,-80 Z' fill='white'/%3E%3Cpath d='M 40,-60 C 50,-70 70,-75 80,-65 C 90,-55 85,-35 75,-20 C 65,-5 60,10 65,25 C 70,40 80,45 90,40 C 85,55 70,60 55,55 C 40,50 35,35 40,20 C 45,5 55,-10 60,-25 C 65,-40 55,-50 45,-55 Z' fill='white' opacity='0.95'/%3E%3C/g%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Code Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <!-- Official Chiliz Logo -->
+                        <svg width="45" height="45" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="chilizRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#EE2E37;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#DC0814;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Outer Circle -->
+                            <circle cx="256" cy="256" r="250" fill="url(#chilizRed)"/>
+                            <!-- Inner Circle -->
+                            <circle cx="256" cy="256" r="235" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                            <!-- Chiliz C Shape with Flame -->
+                            <g transform="translate(256, 256)">
+                                <!-- Main C Shape -->
+                                <path d="M -60,-80 C -90,-80 -110,-60 -110,-30 L -110,30 C -110,60 -90,80 -60,80 L 30,80 L 30,50 L -50,50 C -70,50 -80,40 -80,20 L -80,-20 C -80,-40 -70,-50 -50,-50 L 30,-50 L 30,-80 Z"
+                                      fill="white"/>
+                                <!-- Flame/Pepper Shape -->
+                                <path d="M 40,-60 C 50,-70 70,-75 80,-65 C 90,-55 85,-35 75,-20 C 65,-5 60,10 65,25 C 70,40 80,45 90,40 C 85,55 70,60 55,55 C 40,50 35,35 40,20 C 45,5 55,-10 60,-25 C 65,-40 55,-50 45,-55 Z"
+                                      fill="white" opacity="0.95"/>
+                                <!-- Small accent -->
+                                <circle cx="75" cy="-45" r="8" fill="white" opacity="0.8"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="logo-text-container">
+                        <span class="logo-text">Chiliz MCP</span>
+                        <span class="logo-tagline">Model Context Protocol Server</span>
+                    </div>
+                </div>
+                <div class="nav-links desktop-only">
+                    <a href="#features">Features</a>
+                    <a href="#installation">Installation</a>
+                    <a href="#documentation">Documentation</a>
+                    <a href="#tools">Tools</a>
+                    <a href="#examples">Examples</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="https://github.com/yourusername/chiliz-mcp" class="github-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                        <span class="desktop-only">GitHub</span>
+                    </a>
+                    <button class="mobile-menu-toggle mobile-only">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#installation">Installation</a>
+        <a href="#documentation">Documentation</a>
+        <a href="#tools">Tools</a>
+        <a href="#examples">Examples</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Chiliz Logo Hero -->
+                <div class="hero-logo">
+                    <svg width="120" height="120" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="heroChilizRed" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#EE2E37;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#DC0814;stop-opacity:1" />
+                            </linearGradient>
+                            <filter id="logoShadow">
+                                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.2"/>
+                            </filter>
+                        </defs>
+                        <circle cx="256" cy="256" r="250" fill="url(#heroChilizRed)" filter="url(#logoShadow)"/>
+                        <circle cx="256" cy="256" r="235" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                        <g transform="translate(256, 256)">
+                            <path d="M -60,-80 C -90,-80 -110,-60 -110,-30 L -110,30 C -110,60 -90,80 -60,80 L 30,80 L 30,50 L -50,50 C -70,50 -80,40 -80,20 L -80,-20 C -80,-40 -70,-50 -50,-50 L 30,-50 L 30,-80 Z"
+                                  fill="white"/>
+                            <path d="M 40,-60 C 50,-70 70,-75 80,-65 C 90,-55 85,-35 75,-20 C 65,-5 60,10 65,25 C 70,40 80,45 90,40 C 85,55 70,60 55,55 C 40,50 35,35 40,20 C 45,5 55,-10 60,-25 C 65,-40 55,-50 45,-55 Z"
+                                  fill="white" opacity="0.95"/>
+                            <circle cx="75" cy="-45" r="8" fill="white" opacity="0.8"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="hero-badge">
+                    <span class="badge-icon">🚀</span>
+                    <span>MCP v0.1.0 - Production Ready</span>
+                </div>
+                <h1 class="hero-title">
+                    Professional <span class="gradient-text">Chiliz MCP</span> Server
+                </h1>
+                <p class="hero-subtitle">
+                    Advanced Model Context Protocol server for Chiliz blockchain integration. Real-time analytics,
+                    transaction capabilities, FanX DEX tools, and comprehensive fan token support.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="scrollToSection('installation')">
+                        <i class="fas fa-download"></i>
+                        Get Started
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('documentation')">
+                        <i class="fas fa-book"></i>
+                        Documentation
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">23+</div>
+                        <div class="stat-label">Tools</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Fan Tokens</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">API Integrations</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">TypeScript</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="floating-token" style="--delay: 0s; --duration: 20s;">PSG</div>
+            <div class="floating-token" style="--delay: 3s; --duration: 25s;">BAR</div>
+            <div class="floating-token" style="--delay: 6s; --duration: 22s;">JUV</div>
+            <div class="floating-token" style="--delay: 9s; --duration: 18s;">CITY</div>
+            <div class="floating-token" style="--delay: 12s; --duration: 23s;">GAL</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Everything you need for Chiliz blockchain integration</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Real-Time Analytics</h3>
+                    <p>Track prices, volumes, market cap, and token velocity with advanced statistical analysis</p>
+                    <ul class="feature-list">
+                        <li>Live price feeds from CoinGecko</li>
+                        <li>Historical charts & patterns</li>
+                        <li>Whale transaction detection</li>
+                        <li>Market sentiment analysis</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Transaction Tools</h3>
+                    <p>Execute transactions directly through the MCP with full wallet management</p>
+                    <ul class="feature-list">
+                        <li>Send CHZ & fan tokens</li>
+                        <li>Token approvals</li>
+                        <li>DEX swaps (1inch ready)</li>
+                        <li>Gas optimization</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <h3>Sports Correlation</h3>
+                    <p>Unique analysis correlating team performance with token prices</p>
+                    <ul class="feature-list">
+                        <li>Match outcome predictions</li>
+                        <li>Team performance tracking</li>
+                        <li>League standings</li>
+                        <li>Event impact analysis</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Social Intelligence</h3>
+                    <p>Monitor social sentiment across multiple platforms</p>
+                    <ul class="feature-list">
+                        <li>Twitter sentiment analysis</li>
+                        <li>Reddit community tracking</li>
+                        <li>Influencer monitoring</li>
+                        <li>Trending detection</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>Blockchain Tools</h3>
+                    <p>Complete suite of blockchain interaction capabilities</p>
+                    <ul class="feature-list">
+                        <li>Wallet balance checking</li>
+                        <li>Transaction history</li>
+                        <li>Block explorer integration</li>
+                        <li>Smart contract calls</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Performance</h3>
+                    <p>Optimized for speed with intelligent caching and rate limiting</p>
+                    <ul class="feature-list">
+                        <li>Multi-tier caching</li>
+                        <li>Rate limit protection</li>
+                        <li>Parallel processing</li>
+                        <li>WebSocket support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FanX DEX Section -->
+    <section class="fanx-dex">
+        <div class="container">
+            <div class="section-header">
+                <div class="fanx-badge">
+                    <span class="badge-icon">🔄</span>
+                    <span>DEX Integration</span>
+                </div>
+                <h2><span class="gradient-text">FanX DEX</span> Integration & Liquidity Tools</h2>
+                <p>Tools for interacting with FanX DEX liquidity pools and trading pairs</p>
+            </div>
+
+            <div class="dex-features">
+                <div class="dex-card">
+                    <div class="dex-icon">💧</div>
+                    <h3>Liquidity Pools</h3>
+                    <ul class="dex-list">
+                        <li>Real-time pool analytics</li>
+                        <li>TVL and volume tracking</li>
+                        <li>APY calculations</li>
+                        <li>Impermanent loss monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="dex-card">
+                    <div class="dex-icon">🔁</div>
+                    <h3>Smart Routing</h3>
+                    <ul class="dex-list">
+                        <li>Optimal swap paths</li>
+                        <li>Multi-hop routing</li>
+                        <li>Price impact analysis</li>
+                        <li>Slippage protection</li>
+                    </ul>
+                </div>
+
+                <div class="dex-card">
+                    <div class="dex-icon">📊</div>
+                    <h3>Pool Analytics</h3>
+                    <ul class="dex-list">
+                        <li>Historical TVL charts</li>
+                        <li>Fee tracking</li>
+                        <li>Top providers list</li>
+                        <li>Yield optimization</li>
+                    </ul>
+                </div>
+
+                <div class="dex-card">
+                    <div class="dex-icon">⚡</div>
+                    <h3>LP Management</h3>
+                    <ul class="dex-list">
+                        <li>Add/remove liquidity</li>
+                        <li>Position tracking</li>
+                        <li>Rewards claiming</li>
+                        <li>Auto-compound options</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="popular-pairs">
+                <h3>Popular Trading Pairs</h3>
+                <div class="pairs-grid">
+                    <div class="pair-item">CHZ/PSG</div>
+                    <div class="pair-item">CHZ/BAR</div>
+                    <div class="pair-item">CHZ/MENGO</div>
+                    <div class="pair-item">CHZ/SANTOS</div>
+                    <div class="pair-item">CHZ/SCCP</div>
+                    <div class="pair-item">PSG/BAR</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="advantages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Chiliz MCP?</h2>
+                <p>Superior features compared to other blockchain MCPs</p>
+            </div>
+            <div class="advantages-grid">
+                <div class="advantage-item">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-content">
+                        <h4>Transaction Ready</h4>
+                        <p>Not just read-only - execute real transactions</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-content">
+                        <h4>Sports Specific</h4>
+                        <p>Tailored for fan token ecosystem</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-content">
+                        <h4>Production Ready</h4>
+                        <p>Error handling, caching, rate limiting</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-content">
+                        <h4>Type Safe</h4>
+                        <p>100% TypeScript with strict typing</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-content">
+                        <h4>Multi-Source Data</h4>
+                        <p>CoinGecko, RPC, Social APIs integrated</p>
+                    </div>
+                </div>
+                <div class="advantage-item">
+                    <div class="advantage-icon">✅</div>
+                    <div class="advantage-content">
+                        <h4>Advanced Analytics</h4>
+                        <p>Whale tracking, velocity, patterns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quick Installation</h2>
+                <p>Get started with Chiliz MCP in minutes</p>
+            </div>
+
+            <div class="installation-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Clone Repository</h3>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git clone https://github.com/yourusername/chiliz-mcp.git
+cd chiliz-mcp</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Dependencies</h3>
+                        <div class="code-block">
+                            <pre><code class="language-bash">npm install</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Configure Environment</h3>
+                        <div class="code-block">
+                            <pre><code class="language-bash">cp .env.example .env
+# Edit .env with your configuration
+
+NETWORK=mainnet
+CHILIZ_RPC_URL=https://spicy-rpc.chiliz.com/
+COINGECKO_API_KEY=your_api_key_here
+PRIVATE_KEY=your_wallet_private_key  # Optional, for transactions</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Build & Run</h3>
+                        <div class="code-block">
+                            <pre><code class="language-bash">npm run build
+npm start</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="installation-options">
+                <h3>Alternative Installation Methods</h3>
+                <div class="options-grid">
+                    <div class="option-card">
+                        <h4><i class="fab fa-docker"></i> Docker</h4>
+                        <div class="code-block">
+                            <pre><code class="language-bash">docker-compose up -d</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="option-card">
+                        <h4><i class="fab fa-npm"></i> NPM Global</h4>
+                        <div class="code-block">
+                            <pre><code class="language-bash">npm install -g chiliz-mcp</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="documentation">
+        <div class="container">
+            <div class="section-header">
+                <h2>Technical Documentation</h2>
+                <p>Complete API reference and usage guide</p>
+            </div>
+
+            <div class="doc-tabs">
+                <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+                <button class="tab-btn" onclick="showTab('api')">API Reference</button>
+                <button class="tab-btn" onclick="showTab('examples')">Examples</button>
+                <button class="tab-btn" onclick="showTab('config')">Configuration</button>
+            </div>
+
+            <div class="doc-content">
+                <!-- Overview Tab -->
+                <div id="overview-tab" class="tab-content active">
+                    <h3>Architecture Overview</h3>
+                    <p>Chiliz MCP follows a modular architecture with clear separation of concerns:</p>
+
+                    <div class="architecture-diagram">
+                        <div class="arch-layer">
+                            <h4>MCP Server Layer</h4>
+                            <p>Handles tool registration and request routing</p>
+                        </div>
+                        <div class="arch-layer">
+                            <h4>Tools Layer</h4>
+                            <p>23+ specialized tools for different operations</p>
+                        </div>
+                        <div class="arch-layer">
+                            <h4>API Clients Layer</h4>
+                            <p>CoinGecko, Chiliz RPC, Social APIs</p>
+                        </div>
+                        <div class="arch-layer">
+                            <h4>Utilities Layer</h4>
+                            <p>Caching, rate limiting, error handling</p>
+                        </div>
+                    </div>
+
+                    <h3>Key Components</h3>
+                    <div class="components-grid">
+                        <div class="component">
+                            <h4>Price Tools</h4>
+                            <p>Real-time and historical price data</p>
+                        </div>
+                        <div class="component">
+                            <h4>Wallet Tools</h4>
+                            <p>Balance checking and management</p>
+                        </div>
+                        <div class="component">
+                            <h4>Transaction Tools</h4>
+                            <p>Send, approve, and swap tokens</p>
+                        </div>
+                        <div class="component">
+                            <h4>Analytics Tools</h4>
+                            <p>Advanced market analysis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Reference Tab -->
+                <div id="api-tab" class="tab-content">
+                    <h3>Available Tools</h3>
+
+                    <div class="api-section">
+                        <h4>Price Tools</h4>
+                        <div class="api-method">
+                            <div class="method-header">
+                                <span class="method-name">get_fan_token_price</span>
+                                <span class="method-badge">GET</span>
+                            </div>
+                            <div class="method-description">
+                                Get current price and market data for a fan token
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="language-javascript">{
+  "symbol": "PSG"  // Token symbol (e.g., PSG, BAR, JUV)
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="api-method">
+                            <div class="method-header">
+                                <span class="method-name">get_market_chart</span>
+                                <span class="method-badge">GET</span>
+                            </div>
+                            <div class="method-description">
+                                Get historical price chart data
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="language-javascript">{
+  "symbol": "PSG",
+  "days": 7  // Number of days (1-365)
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="api-section">
+                        <h4>Transaction Tools</h4>
+                        <div class="api-method">
+                            <div class="method-header">
+                                <span class="method-name">send_tokens</span>
+                                <span class="method-badge">POST</span>
+                            </div>
+                            <div class="method-description">
+                                Send CHZ or fan tokens (requires PRIVATE_KEY)
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="language-javascript">{
+  "to": "0x742d35Cc...",      // Recipient address
+  "amount": "100",             // Amount to send
+  "token": "PSG"               // Token symbol (optional, defaults to CHZ)
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="api-section">
+                        <h4>Analytics Tools</h4>
+                        <div class="api-method">
+                            <div class="method-header">
+                                <span class="method-name">detect_whale_trades</span>
+                                <span class="method-badge">GET</span>
+                            </div>
+                            <div class="method-description">
+                                Detect large transactions on the network
+                            </div>
+                            <div class="code-block">
+                                <pre><code class="language-javascript">{
+  "minValueUSD": 100000,  // Minimum USD value
+  "blockRange": 100       // Blocks to scan
+}</code></pre>
+                                <button class="copy-btn" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Examples Tab -->
+                <div id="examples-tab" class="tab-content">
+                    <h3>Usage Examples</h3>
+
+                    <div class="example-section">
+                        <h4>Basic Price Check</h4>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">import { Client } from '@modelcontextprotocol/sdk/client';
+
+const client = new Client();
+await client.connect(transport);
+
+// Get PSG token price
+const result = await client.callTool('get_fan_token_price', {
+  symbol: 'PSG'
+});
+
+console.log(`PSG Price: $${result.currentPrice}`);
+console.log(`24h Change: ${result.priceChangePercentage24h}%`);</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>Send Fan Tokens</h4>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">// Send 100 PSG tokens
+const tx = await client.callTool('send_tokens', {
+  to: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb1',
+  amount: '100',
+  token: 'PSG'
+});
+
+console.log(`Transaction sent: ${tx.hash}`);</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="example-section">
+                        <h4>Analyze Social Sentiment</h4>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">// Get social sentiment for PSG token
+const sentiment = await client.callTool('get_social_sentiment', {
+  token: 'PSG',
+  platforms: ['twitter', 'reddit']
+});
+
+console.log(`Overall Sentiment: ${sentiment.overall.sentiment}`);
+console.log(`Total Mentions: ${sentiment.overall.totalMentions}`);
+console.log(`Trending: ${sentiment.trending ? '🔥 YES' : 'No'}`);</code></pre>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Configuration Tab -->
+                <div id="config-tab" class="tab-content">
+                    <h3>Configuration Options</h3>
+
+                    <div class="config-section">
+                        <h4>Environment Variables</h4>
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Variable</th>
+                                    <th>Description</th>
+                                    <th>Default</th>
+                                    <th>Required</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>NETWORK</code></td>
+                                    <td>Network to use (mainnet/testnet)</td>
+                                    <td>mainnet</td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td><code>CHILIZ_RPC_URL</code></td>
+                                    <td>Chiliz Chain RPC endpoint</td>
+                                    <td>https://spicy-rpc.chiliz.com/</td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td><code>COINGECKO_API_KEY</code></td>
+                                    <td>CoinGecko API key for higher limits</td>
+                                    <td>-</td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td><code>PRIVATE_KEY</code></td>
+                                    <td>Wallet private key for transactions</td>
+                                    <td>-</td>
+                                    <td>For TX</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="config-section">
+                        <h4>Cache Configuration</h4>
+                        <table class="config-table">
+                            <thead>
+                                <tr>
+                                    <th>Cache Type</th>
+                                    <th>TTL (seconds)</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Price Data</td>
+                                    <td>60</td>
+                                    <td>Token prices and market data</td>
+                                </tr>
+                                <tr>
+                                    <td>Token List</td>
+                                    <td>3600</td>
+                                    <td>List of supported tokens</td>
+                                </tr>
+                                <tr>
+                                    <td>Blockchain Info</td>
+                                    <td>10</td>
+                                    <td>Network stats and block data</td>
+                                </tr>
+                                <tr>
+                                    <td>Transactions</td>
+                                    <td>300</td>
+                                    <td>Transaction details</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Grid Section -->
+    <section id="tools" class="tools">
+        <div class="container">
+            <div class="section-header">
+                <h2>Complete Tool Set</h2>
+                <p>23+ specialized tools for every need</p>
+            </div>
+
+            <div class="tools-categories">
+                <div class="category">
+                    <h3><i class="fas fa-chart-line"></i> Price Tools</h3>
+                    <ul class="tool-list">
+                        <li>get_fan_token_price</li>
+                        <li>get_multiple_prices</li>
+                        <li>get_market_chart</li>
+                        <li>get_trending_tokens</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-wallet"></i> Wallet Tools</h3>
+                    <ul class="tool-list">
+                        <li>get_wallet_balance</li>
+                        <li>get_my_balance</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-cube"></i> Blockchain Tools</h3>
+                    <ul class="tool-list">
+                        <li>get_blockchain_info</li>
+                        <li>get_transaction</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-coins"></i> Token Tools</h3>
+                    <ul class="tool-list">
+                        <li>get_fan_tokens_list</li>
+                        <li>get_token_holders</li>
+                        <li>get_token_info</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-exchange-alt"></i> Transaction Tools</h3>
+                    <ul class="tool-list">
+                        <li>send_tokens</li>
+                        <li>approve_token</li>
+                        <li>swap_tokens</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-brain"></i> Analytics Tools</h3>
+                    <ul class="tool-list">
+                        <li>detect_whale_trades</li>
+                        <li>calculate_token_velocity</li>
+                        <li>identify_unusual_patterns</li>
+                        <li>analyze_liquidity_depth</li>
+                        <li>get_market_sentiment</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-hashtag"></i> Social Tools</h3>
+                    <ul class="tool-list">
+                        <li>get_social_sentiment</li>
+                        <li>track_social_momentum</li>
+                        <li>get_influencer_activity</li>
+                    </ul>
+                </div>
+
+                <div class="category">
+                    <h3><i class="fas fa-trophy"></i> Sports Tools</h3>
+                    <ul class="tool-list">
+                        <li>analyze_team_performance</li>
+                        <li>get_upcoming_matches</li>
+                        <li>get_league_standings</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Token Support Section -->
+    <section class="tokens">
+        <div class="container">
+            <div class="section-header">
+                <h2>Supported Fan Tokens</h2>
+                <p>Full support for 45+ official fan tokens worldwide</p>
+            </div>
+
+            <!-- Brazilian Tokens Featured -->
+            <div class="token-category">
+                <h3>🇧🇷 Brazilian Football Clubs</h3>
+                <div class="tokens-grid brazilian">
+                    <div class="token-item featured">
+                        <span class="token-symbol">MENGO</span>
+                        <span class="token-name">Flamengo</span>
+                    </div>
+                    <div class="token-item featured">
+                        <span class="token-symbol">SCCP</span>
+                        <span class="token-name">Corinthians</span>
+                    </div>
+                    <div class="token-item featured">
+                        <span class="token-symbol">SANTOS</span>
+                        <span class="token-name">Santos FC</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">SPFC</span>
+                        <span class="token-name">São Paulo FC</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">GALO</span>
+                        <span class="token-name">Atlético Mineiro</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">VASCO</span>
+                        <span class="token-name">Vasco da Gama</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">VERDAO</span>
+                        <span class="token-name">Palmeiras</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">FLU</span>
+                        <span class="token-name">Fluminense</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">BOT</span>
+                        <span class="token-name">Botafogo</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">CRU</span>
+                        <span class="token-name">Cruzeiro</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">INTER-BR</span>
+                        <span class="token-name">Internacional</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">GREMIO</span>
+                        <span class="token-name">Grêmio</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- European Tokens -->
+            <div class="token-category">
+                <h3>⚽ European Football Clubs</h3>
+                <div class="tokens-grid">
+                    <div class="token-item">
+                        <span class="token-symbol">PSG</span>
+                        <span class="token-name">Paris Saint-Germain</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">JUV</span>
+                        <span class="token-name">Juventus</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">BAR</span>
+                        <span class="token-name">FC Barcelona</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">CITY</span>
+                        <span class="token-name">Manchester City</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">GAL</span>
+                        <span class="token-name">Galatasaray</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">ACM</span>
+                        <span class="token-name">AC Milan</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">INTER</span>
+                        <span class="token-name">Inter Milan</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">ATM</span>
+                        <span class="token-name">Atletico Madrid</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Categories -->
+            <div class="token-category">
+                <h3>🏆 Sports & Esports</h3>
+                <div class="tokens-grid">
+                    <div class="token-item">
+                        <span class="token-symbol">UFC</span>
+                        <span class="token-name">UFC</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">PFL</span>
+                        <span class="token-name">PFL</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">OG</span>
+                        <span class="token-name">OG Esports</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">NAVI</span>
+                        <span class="token-name">Natus Vincere</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ecosystem-links">
+                <a href="https://www.chiliz.com" target="_blank" class="ecosystem-link">
+                    <i class="fas fa-globe"></i> Chiliz.com
+                </a>
+                <a href="https://www.socios.com" target="_blank" class="ecosystem-link">
+                    <i class="fas fa-users"></i> Socios.com
+                </a>
+                <a href="https://fantokens.com" target="_blank" class="ecosystem-link">
+                    <i class="fas fa-coins"></i> FanTokens.com
+                </a>
+                <a href="https://fanx.chiliz.com" target="_blank" class="ecosystem-link">
+                    <i class="fas fa-exchange-alt"></i> FanX DEX
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Get Started?</h2>
+                <p>Join the growing community of developers using Chiliz MCP</p>
+                <div class="cta-actions">
+                    <a href="https://github.com/yourusername/chiliz-mcp" class="btn btn-primary">
+                        <i class="fab fa-github"></i>
+                        View on GitHub
+                    </a>
+                    <a href="https://discord.gg/chiliz" class="btn btn-secondary">
+                        <i class="fab fa-discord"></i>
+                        Join Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Chiliz MCP</h4>
+                    <p>Professional MCP server for Chiliz blockchain integration</p>
+                    <div class="footer-badges">
+                        <span class="badge">v0.1.0</span>
+                        <span class="badge">MIT License</span>
+                        <span class="badge">TypeScript</span>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="https://github.com/yourusername/chiliz-mcp">GitHub</a></li>
+                        <li><a href="#installation">Installation</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://discord.gg/chiliz">Discord</a></li>
+                        <li><a href="https://twitter.com/chiliz">Twitter</a></li>
+                        <li><a href="https://www.chiliz.com/">Official Site</a></li>
+                        <li><a href="https://socios.com/">Socios.com</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/yourusername" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://twitter.com/yourhandle" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://discord.gg/chiliz" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="mailto:your.email@example.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Chiliz MCP. Built with ❤️ for the Chiliz community</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
