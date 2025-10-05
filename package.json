@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/BrunoPessoa22/chiliz-mcp/issues"
   },
-  "homepage": "https://landing-page-jbipc15u2-bruno-pessoas-projects.vercel.app",
+  "homepage": "https://chilizmcp.vercel.app",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "axios": "^1.7.2",

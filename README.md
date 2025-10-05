@@ -2,7 +2,7 @@
 
 Advanced Model Context Protocol (MCP) server for the Chiliz blockchain ecosystem. Features comprehensive tools for fan token management, DeFi operations, sports analytics, and social sentiment tracking.
 
-![Chiliz MCP Banner](https://raw.githubusercontent.com/yourusername/chiliz-mcp/main/landing-page/chiliz-banner.png)
+![Chiliz MCP Banner](https://raw.githubusercontent.com/BrunoPessoa22/chiliz-mcp/main/landing-page/chiliz-banner.png)
 
 ## 🚀 Features
 
@@ -38,7 +38,7 @@ Complete support for all Brazilian football club tokens:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/chiliz-mcp.git
+git clone https://github.com/BrunoPessoa22/chiliz-mcp.git
 cd chiliz-mcp
 ```
 
@@ -186,7 +186,7 @@ docker run -d --name chiliz-mcp -p 3000:3000 chiliz-mcp
 
 ## 📖 Documentation
 
-Full documentation available at: https://chiliz-mcp.vercel.app
+Full documentation available at: https://chilizmcp.vercel.app
 
 ### Example Usage
 
@@ -229,9 +229,9 @@ MIT License - see [LICENSE](LICENSE) file
 
 - [Chiliz Chain](https://chiliz.com)
 - [FanX DEX](https://fanx.chiliz.com)
-- [Documentation](https://chiliz-mcp.vercel.app)
+- [Documentation](https://chilizmcp.vercel.app)
 - [Discord Community](https://discord.gg/chiliz)
-- [Report Issues](https://github.com/yourusername/chiliz-mcp/issues)
+- [Report Issues](https://github.com/BrunoPessoa22/chiliz-mcp/issues)
 
 ## ⚡ Quick Commands
 
