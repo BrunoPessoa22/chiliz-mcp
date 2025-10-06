@@ -17,7 +17,7 @@
     "prepublishOnly": "npm run test && npm run build"
   },
   "keywords": ["mcp", "chiliz", "blockchain", "fan-tokens", "sports", "brazil", "fanx", "dex", "defi"],
-  "author": "Bruno Pessoa",
+  "author": "Bruno Pessoa <bruno.pessoa@chiliz.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -29,10 +29,12 @@
   "homepage": "https://chiliz-mcp.vercel.app",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
     "axios": "^1.7.2",
     "ethers": "^6.13.1",
     "node-cache": "^5.1.2",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "solc": "^0.8.21"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",

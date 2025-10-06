@@ -1,10 +1,9 @@
-import { ChilizRPCClient } from '../api/chiliz-rpc.js';
 import { cacheManager } from '../utils/cache.js';
 import { LiquidityPool, LiquidityPosition } from '../types/index.js';
 
 // FanX DEX contract addresses (mainnet)
-const FANX_FACTORY = '0x...'; // Factory contract address
-const FANX_ROUTER = '0x...'; // Router contract address
+// const FANX_FACTORY = '0x...'; // Factory contract address
+// const FANX_ROUTER = '0x...'; // Router contract address
 
 // Popular liquidity pairs on FanX
 const POPULAR_PAIRS = [
@@ -89,8 +88,8 @@ export async function getAllLiquidityPools(params?: {
   // Apply filters
   let filteredPools = pools;
 
-  if (params?.minTvl) {
-    filteredPools = filteredPools.filter(p => p.tvl >= params.minTvl);
+  if (params?.minTvl !== undefined) {
+    filteredPools = filteredPools.filter(p => p.tvl >= params.minTvl!);
   }
 
   if (params?.token) {
@@ -124,11 +123,9 @@ export async function getAllLiquidityPools(params?: {
 /**
  * Get user's liquidity positions
  */
-export async function getUserLiquidityPositions(params: {
+export async function getUserLiquidityPositions(_params: {
   address: string;
 }): Promise<LiquidityPosition[]> {
-  const client = new ChilizRPCClient();
-
   // In production, this would query the user's LP tokens
   // For now, returning empty array (would require indexer)
   return [];
@@ -184,7 +181,7 @@ export async function getOptimalSwapRoute(params: {
 /**
  * Add liquidity to a pool
  */
-export async function addLiquidity(params: {
+export async function addLiquidity(_params: {
   token0: string;
   token1: string;
   amount0: string;
@@ -204,7 +201,7 @@ export async function addLiquidity(params: {
 /**
  * Remove liquidity from a pool
  */
-export async function removeLiquidity(params: {
+export async function removeLiquidity(_params: {
   poolId: string;
   liquidity: string;
   minAmount0?: string;

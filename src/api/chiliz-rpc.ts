@@ -330,43 +330,128 @@ export class ChilizRPCClient {
     return [];
   }
 
-  async detectWhaleTransactions(minValueUSD: number = 100000): Promise<any[]> {
+  async detectWhaleTransactions(minValueUSD: number = 100000, blockRange: number = 10): Promise<any[]> {
     await rateLimiter.waitForLimit('rpc');
 
     try {
       const latestBlock = await this.provider.getBlockNumber();
-      const block = await this.provider.getBlock(latestBlock, true);
+      const startBlock = Math.max(0, latestBlock - blockRange);
 
-      if (!block || !block.transactions) {
-        return [];
-      }
+      // Import CoinGeckoClient dynamically to avoid circular dependency
+      const { CoinGeckoClient } = await import('./coingecko.js');
+      const coingecko = new CoinGeckoClient();
 
-      const whaleTransactions = [];
-
-      // Get CHZ price
-      const chzPriceUSD = 0.1; // You would get this from CoinGecko
-
-      for (const tx of block.transactions) {
-        if (typeof tx === 'string') continue;
-
-        // TypeScript needs explicit type checking for transaction objects
-        const txObj = tx as ethers.TransactionResponse;
-        const valueInEther = parseFloat(ethers.formatEther(txObj.value));
-        const valueInUSD = valueInEther * chzPriceUSD;
-
-        if (valueInUSD >= minValueUSD) {
-          whaleTransactions.push({
-            hash: txObj.hash,
-            from: txObj.from,
-            to: txObj.to,
-            value: valueInEther,
-            valueUSD: valueInUSD,
-            blockNumber: latestBlock
-          });
+      // Get real-time CHZ price
+      let chzPriceUSD = 0.1; // Fallback
+      try {
+        const chzPrice = await coingecko.getPrice('chiliz');
+        if (chzPrice) {
+          chzPriceUSD = chzPrice.currentPrice;
+        }
+      } catch (error) {
+        if (config.debug) {
+          console.error('Failed to get CHZ price, using fallback:', error);
         }
       }
 
-      return whaleTransactions;
+      const whaleTransactions = [];
+      const transferTopic = ethers.id('Transfer(address,address,uint256)');
+
+      // Scan multiple blocks
+      for (let blockNum = startBlock; blockNum <= latestBlock; blockNum++) {
+        const block = await this.provider.getBlock(blockNum, true);
+
+        if (!block || !block.transactions) {
+          continue;
+        }
+
+        // Check CHZ transfers
+        for (const tx of block.transactions) {
+          if (typeof tx === 'string') continue;
+
+          const txObj = tx as ethers.TransactionResponse;
+          const valueInEther = parseFloat(ethers.formatEther(txObj.value));
+          const valueInUSD = valueInEther * chzPriceUSD;
+
+          if (valueInUSD >= minValueUSD) {
+            whaleTransactions.push({
+              hash: txObj.hash,
+              from: txObj.from,
+              to: txObj.to,
+              value: valueInEther,
+              valueUSD: valueInUSD,
+              blockNumber: blockNum,
+              token: 'CHZ',
+              timestamp: block.timestamp
+            });
+          }
+        }
+
+        // Check fan token transfers from logs
+        const logs = await this.provider.getLogs({
+          fromBlock: blockNum,
+          toBlock: blockNum,
+          topics: [transferTopic]
+        });
+
+        for (const log of logs) {
+          // Skip if not a token we track
+          const tokenSymbol = Object.entries(TOKEN_ADDRESSES).find(
+            ([_, addr]) => addr.toLowerCase() === log.address.toLowerCase()
+          )?.[0];
+
+          if (!tokenSymbol) continue;
+
+          try {
+            const tokenContract = new ethers.Contract(log.address, ERC20_ABI, this.provider);
+            const decimals = await tokenContract.decimals();
+            const from = ethers.getAddress('0x' + log.topics[1].slice(26));
+            const to = ethers.getAddress('0x' + log.topics[2].slice(26));
+            const amount = ethers.formatUnits(log.data, decimals);
+
+            // Get token price from CoinGecko
+            const tokenData = await import('../types/index.js').then(m =>
+              m.FAN_TOKENS.find(t => t.symbol === tokenSymbol)
+            );
+
+            if (tokenData?.coingeckoId) {
+              try {
+                const tokenPrice = await coingecko.getPrice(tokenData.coingeckoId);
+                if (tokenPrice) {
+                  const valueInUSD = parseFloat(amount) * tokenPrice.currentPrice;
+
+                  if (valueInUSD >= minValueUSD) {
+                    whaleTransactions.push({
+                      hash: log.transactionHash,
+                      from,
+                      to,
+                      value: parseFloat(amount),
+                      valueUSD: valueInUSD,
+                      blockNumber: blockNum,
+                      token: tokenSymbol,
+                      tokenAddress: log.address,
+                      timestamp: block.timestamp
+                    });
+                  }
+                }
+              } catch (error) {
+                // Skip if price fetch fails
+                if (config.debug) {
+                  console.error(`Failed to get price for ${tokenSymbol}:`, error);
+                }
+              }
+            }
+          } catch (error) {
+            // Skip malformed logs
+            if (config.debug) {
+              console.error('Failed to parse transfer log:', error);
+            }
+          }
+        }
+      }
+
+      // Sort by value DESC
+      return whaleTransactions.sort((a, b) => b.valueUSD - a.valueUSD);
     } catch (error: any) {
       throw {
         code: 'RPC_ERROR',

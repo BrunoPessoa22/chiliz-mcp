@@ -1,15 +1,16 @@
-# Chiliz MCP 🌶️
+# Chiliz MCP
 
 Advanced Model Context Protocol (MCP) server for the Chiliz blockchain ecosystem. Features comprehensive tools for fan token management, DeFi operations, sports analytics, and social sentiment tracking.
 
 ![Chiliz MCP Banner](https://raw.githubusercontent.com/BrunoPessoa22/chiliz-mcp/main/landing-page/chiliz-banner.png)
 
-## 🚀 Features
+## Features
 
 ### Core Blockchain Tools
 - **Real-time Price Tracking**: Live prices for all Chiliz fan tokens
 - **Wallet Management**: Balance checking, transaction history, portfolio analytics
 - **Transaction Capabilities**: Send CHZ, swap tokens, approve spending
+- **Smart Contract Deployment**: Deploy ERC-20 tokens, NFT collections, and custom contracts
 - **Blockchain Analytics**: Network stats, gas prices, block explorer integration
 - **WebSocket Monitoring**: Real-time block updates, pending transactions, contract events
 
@@ -19,15 +20,12 @@ Advanced Model Context Protocol (MCP) server for the Chiliz blockchain ecosystem
 - **Social Sentiment**: Twitter/Reddit sentiment analysis for fan tokens
 - **Sports Correlation**: Team performance impact on token prices
 
-### Brazilian Market Focus
-Complete support for official Chiliz Brazilian football club tokens:
-- Flamengo (MENGO)
-- Corinthians (SCCP)
-- São Paulo (SPFC)
-- Atlético Mineiro (GALO)
-- Palmeiras (VERDAO)
-- Fluminense (FLU)
-- Vasco da Gama (VASCO)
+### Supported Fan Tokens
+Support for major Chiliz fan tokens including:
+- European clubs: PSG, Barcelona, Juventus, Manchester City, AC Milan, Inter Milan
+- Brazilian clubs: Flamengo (MENGO), Corinthians (SCCP), São Paulo (SPFC), Palmeiras (VERDAO)
+- Esports: OG, Natus Vincere, Team Heretics
+- Sports: UFC, PFL
 
 ### FanX DEX Integration
 - Liquidity pool analytics
@@ -35,7 +33,7 @@ Complete support for official Chiliz Brazilian football club tokens:
 - APY calculations
 - Impermanent loss tracking
 
-## 📦 Installation
+## Installation
 
 ### Quick Start
 
@@ -91,7 +89,7 @@ npm install -g chiliz-mcp
 
 3. Restart Claude Desktop
 
-## 🛠️ Configuration
+## Configuration
 
 ### Required Environment Variables
 
@@ -110,7 +108,7 @@ npm install -g chiliz-mcp
 | `RATE_LIMIT_REQUESTS` | Max requests per window | `100` |
 | `PRIVATE_KEY` | Wallet private key for transactions | None |
 
-## 📚 Available Tools
+## Available Tools
 
 ### Price Tools
 - `get_token_price` - Get current price for any fan token
@@ -127,6 +125,11 @@ npm install -g chiliz-mcp
 - `send_fan_token` - Transfer fan tokens
 - `swap_tokens` - Swap between fan tokens via DEX
 - `approve_token` - Approve token spending
+
+### Smart Contract Deployment Tools
+- `deploy_erc20_token` - Deploy custom ERC-20 tokens
+- `deploy_nft_collection` - Deploy ERC-721 NFT collections
+- `deploy_custom_contract` - Deploy arbitrary Solidity contracts
 
 ### Analytics Tools
 - `track_whale_movements` - Monitor large transactions
@@ -150,7 +153,7 @@ npm install -g chiliz-mcp
 - `get_websocket_status` - Check connection status
 - `stop_all_monitoring` - Stop all real-time subscriptions
 
-## 💻 Development
+## Development
 
 ### Project Structure
 ```
@@ -177,7 +180,7 @@ npm run build
 npm run dev  # Development mode with watch
 ```
 
-## 🌍 Deployment
+## Deployment
 
 ### Deploy Landing Page to Vercel
 
@@ -199,7 +202,7 @@ docker build -t chiliz-mcp .
 docker run -d --name chiliz-mcp -p 3000:3000 chiliz-mcp
 ```
 
-## 📖 Documentation
+## Documentation
 
 Full documentation available at: https://chiliz-mcp.vercel.app
 
@@ -214,7 +217,7 @@ const price = await mcp.callTool('get_token_price', {
 // Check wallet balance
 const balance = await mcp.callTool('get_wallet_balance', {
   address: '0x...',
-  tokens: ['MENGO', 'SCCP', 'SANTOS']
+  tokens: ['MENGO', 'SCCP']
 });
 
 // Swap tokens via FanX DEX
@@ -223,24 +226,39 @@ const swap = await mcp.callTool('swap_tokens', {
   tokenOut: 'MENGO',
   amount: '100'
 });
+
+// Deploy ERC-20 token
+const token = await mcp.callTool('deploy_erc20_token', {
+  name: 'Flamengo Fan Token',
+  symbol: 'MENGO',
+  initialSupply: 1000000
+});
+
+// Deploy NFT collection
+const nft = await mcp.callTool('deploy_nft_collection', {
+  name: 'Match Highlights',
+  symbol: 'HIGHLIGHT',
+  maxSupply: 10000,
+  baseTokenURI: 'ipfs://QmXxx/'
+});
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ### Priority Areas
-- 🔴 1inch DEX integration
-- 🔴 WebSocket real-time updates
-- 🟡 Historical data storage
-- 🟡 NFT support
-- 🟢 Documentation improvements
+- High Priority: 1inch DEX integration
+- High Priority: WebSocket real-time updates
+- Medium Priority: Historical data storage
+- Medium Priority: NFT support
+- Low Priority: Documentation improvements
 
-## 📜 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file
 
-## 🔗 Links
+## Links
 
 - [Chiliz Chain](https://chiliz.com)
 - [FanX DEX](https://fanx.chiliz.com)
@@ -248,7 +266,7 @@ MIT License - see [LICENSE](LICENSE) file
 - [Discord Community](https://discord.gg/chiliz)
 - [Report Issues](https://github.com/BrunoPessoa22/chiliz-mcp/issues)
 
-## ⚡ Quick Commands
+## Quick Commands
 
 ```bash
 # Install
@@ -267,9 +285,9 @@ chiliz-mcp test
 chiliz-mcp logs
 ```
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-Built with ❤️ for the Chiliz community. Special thanks to all Brazilian football fans! 🇧🇷
+Built with love for the Chiliz community. Special thanks to all Brazilian football fans!
 
 ---
 
