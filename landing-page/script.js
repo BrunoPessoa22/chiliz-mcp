@@ -218,3 +218,198 @@ function copyCodeBlock(button) {
 
 // Test function to verify script is loaded
 console.log('Chiliz MCP script.js loaded successfully');
+
+// Initialize Lucide icons after any dynamic content changes
+function reinitLucide() {
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+// ==================== SANDBOX FUNCTIONALITY ====================
+
+const TOOL_CONFIGS = {
+    get_token_price: {
+        description: 'Get current price and market data for any fan token',
+        params: [
+            { name: 'symbol', type: 'text', placeholder: 'PSG', required: true, description: 'Token symbol (e.g., PSG, BAR, CHZ, MENGO)' }
+        ]
+    },
+    get_wallet_balance: {
+        description: 'Get CHZ balance for any wallet address on Chiliz Chain',
+        params: [
+            { name: 'address', type: 'text', placeholder: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb', required: true, description: 'Ethereum wallet address' }
+        ]
+    },
+    get_blockchain_info: {
+        description: 'Get current Chiliz blockchain information and network stats',
+        params: []
+    },
+    detect_whale_trades: {
+        description: 'Detect large transactions (whale trades) in recent blocks',
+        params: [
+            { name: 'minValueUSD', type: 'number', placeholder: '100000', required: false, description: 'Minimum value in USD (default: 100000)' },
+            { name: 'blockRange', type: 'number', placeholder: '100', required: false, description: 'Number of blocks to scan (default: 100)' }
+        ]
+    }
+};
+
+function updateToolParams() {
+    const toolSelect = document.getElementById('toolSelect');
+    const toolDescription = document.getElementById('toolDescription');
+    const toolParams = document.getElementById('toolParams');
+    const executeBtn = document.getElementById('executeBtn');
+
+    const selectedTool = toolSelect.value;
+
+    if (!selectedTool) {
+        toolDescription.classList.remove('active');
+        toolParams.innerHTML = '';
+        executeBtn.disabled = true;
+        return;
+    }
+
+    const config = TOOL_CONFIGS[selectedTool];
+
+    // Show description
+    toolDescription.textContent = config.description;
+    toolDescription.classList.add('active');
+
+    // Build params form
+    if (config.params.length === 0) {
+        toolParams.innerHTML = '<p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">No parameters required</p>';
+    } else {
+        toolParams.innerHTML = config.params.map(param => `
+            <div class="param-group">
+                <label>${param.name}${param.required ? ' *' : ''}</label>
+                <input
+                    type="${param.type}"
+                    id="param_${param.name}"
+                    placeholder="${param.placeholder}"
+                    ${param.required ? 'required' : ''}
+                />
+                <small>${param.description}</small>
+            </div>
+        `).join('');
+    }
+
+    executeBtn.disabled = false;
+    reinitLucide();
+}
+
+async function executeTool() {
+    const toolSelect = document.getElementById('toolSelect');
+    const executeBtn = document.getElementById('executeBtn');
+    const output = document.getElementById('output');
+    const copyBtn = document.getElementById('copyOutputBtn');
+
+    const selectedTool = toolSelect.value;
+    if (!selectedTool) return;
+
+    const config = TOOL_CONFIGS[selectedTool];
+
+    // Gather parameters
+    const params = {};
+    for (const param of config.params) {
+        const input = document.getElementById(`param_${param.name}`);
+        if (input) {
+            const value = input.value.trim();
+            if (param.required && !value) {
+                alert(`${param.name} is required`);
+                return;
+            }
+            if (value) {
+                params[param.name] = param.type === 'number' ? parseFloat(value) : value;
+            }
+        }
+    }
+
+    // Show loading state
+    executeBtn.classList.add('loading');
+    executeBtn.innerHTML = '<div class="spinner"></div> Executing...';
+    output.innerHTML = '<div class="output-loading"><div class="spinner"></div></div>';
+    copyBtn.style.display = 'none';
+
+    try {
+        const response = await fetch('/api/sandbox', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tool: selectedTool,
+                params: params
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || `HTTP ${response.status}`);
+        }
+
+        // Display success output
+        output.innerHTML = `
+            <div class="output-json">
+                <pre><code class="language-json">${JSON.stringify(data, null, 2)}</code></pre>
+            </div>
+        `;
+
+        // Show copy button
+        copyBtn.style.display = 'flex';
+        window.sandboxOutput = data;
+
+        // Update rate limit info
+        if (data.metadata && data.metadata.rateLimit) {
+            const rateLimitInfo = document.getElementById('rateLimitInfo');
+            rateLimitInfo.innerHTML = `
+                <i data-lucide="info" style="width: 14px; height: 14px;"></i>
+                <span>${data.metadata.rateLimit.remaining} requests remaining (resets at ${new Date(data.metadata.rateLimit.resetAt).toLocaleTimeString()})</span>
+            `;
+        }
+
+    } catch (error) {
+        console.error('Sandbox execution error:', error);
+        output.innerHTML = `
+            <div class="output-error">
+                <strong>Error:</strong> ${error.message}
+            </div>
+        `;
+    } finally {
+        // Reset button
+        executeBtn.classList.remove('loading');
+        executeBtn.innerHTML = '<i data-lucide="play" style="width: 16px; height: 16px;"></i> Execute Tool';
+        reinitLucide();
+    }
+}
+
+function loadExample(tool, params) {
+    const toolSelect = document.getElementById('toolSelect');
+    toolSelect.value = tool;
+    updateToolParams();
+
+    // Fill in params
+    for (const [key, value] of Object.entries(params)) {
+        const input = document.getElementById(`param_${key}`);
+        if (input) {
+            input.value = value;
+        }
+    }
+
+    // Scroll to sandbox
+    document.getElementById('sandbox').scrollIntoView({ behavior: 'smooth' });
+}
+
+function copyOutput() {
+    const text = JSON.stringify(window.sandboxOutput, null, 2);
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyOutputBtn');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="check" style="width: 14px; height: 14px;"></i> Copied!';
+        reinitLucide();
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            reinitLucide();
+        }, 2000);
+    });
+}

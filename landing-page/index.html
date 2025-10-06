@@ -66,6 +66,7 @@
                 <div class="nav-links desktop-only">
                     <a href="#features">Features</a>
                     <a href="#installation">Installation</a>
+                    <a href="#sandbox">Sandbox</a>
                     <a href="#documentation">Documentation</a>
                     <a href="#tools">Tools</a>
                     <a href="#examples">Examples</a>
@@ -89,6 +90,7 @@
     <div class="mobile-menu">
         <a href="#features">Features</a>
         <a href="#installation">Installation</a>
+        <a href="#sandbox">Sandbox</a>
         <a href="#documentation">Documentation</a>
         <a href="#tools">Tools</a>
         <a href="#examples">Examples</a>
@@ -671,6 +673,83 @@ npm start</code></pre>
                                 <i data-lucide="copy" style="width: 16px; height: 16px;"></i>
                             </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Sandbox Section -->
+    <section id="sandbox" class="sandbox">
+        <div class="container">
+            <div class="section-header">
+                <h2>🧪 Try It Now - Interactive Sandbox</h2>
+                <p>Test Chiliz MCP tools with real blockchain data. No installation required.</p>
+            </div>
+
+            <div class="sandbox-container">
+                <div class="sandbox-left">
+                    <h3>Select a Tool</h3>
+                    <div class="tool-selector">
+                        <select id="toolSelect" onchange="updateToolParams()">
+                            <option value="">Choose a tool...</option>
+                            <option value="get_token_price">Get Token Price</option>
+                            <option value="get_wallet_balance">Get Wallet Balance</option>
+                            <option value="get_blockchain_info">Get Blockchain Info</option>
+                            <option value="detect_whale_trades">Detect Whale Trades</option>
+                        </select>
+                    </div>
+
+                    <div id="toolDescription" class="tool-description"></div>
+
+                    <div id="toolParams" class="tool-params"></div>
+
+                    <button id="executeBtn" class="execute-btn" onclick="executeTool()" disabled>
+                        <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+                        Execute Tool
+                    </button>
+
+                    <div id="rateLimitInfo" class="rate-limit-info">
+                        <i data-lucide="info" style="width: 14px; height: 14px;"></i>
+                        <span>10 requests per hour</span>
+                    </div>
+                </div>
+
+                <div class="sandbox-right">
+                    <div class="output-header">
+                        <h3>Response</h3>
+                        <button class="copy-output-btn" onclick="copyOutput()" id="copyOutputBtn" style="display: none;">
+                            <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                            Copy
+                        </button>
+                    </div>
+                    <div id="output" class="sandbox-output">
+                        <div class="output-placeholder">
+                            <i data-lucide="terminal" style="width: 48px; height: 48px; opacity: 0.3;"></i>
+                            <p>Select a tool and click Execute to see results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sandbox-examples">
+                <h3>Quick Examples</h3>
+                <div class="examples-grid">
+                    <div class="example-card" onclick="loadExample('get_token_price', {symbol: 'PSG'})">
+                        <i data-lucide="trending-up" style="width: 20px; height: 20px;"></i>
+                        <span>Get PSG Token Price</span>
+                    </div>
+                    <div class="example-card" onclick="loadExample('get_wallet_balance', {address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb'})">
+                        <i data-lucide="wallet" style="width: 20px; height: 20px;"></i>
+                        <span>Check Wallet Balance</span>
+                    </div>
+                    <div class="example-card" onclick="loadExample('get_blockchain_info', {})">
+                        <i data-lucide="database" style="width: 20px; height: 20px;"></i>
+                        <span>Blockchain Stats</span>
+                    </div>
+                    <div class="example-card" onclick="loadExample('detect_whale_trades', {minValueUSD: 50000, blockRange: 50})">
+                        <i data-lucide="fish" style="width: 20px; height: 20px;"></i>
+                        <span>Find Whale Trades</span>
                     </div>
                 </div>
             </div>
