@@ -1,0 +1,349 @@
+    <!-- Installation Section - Claude Desktop Focused -->
+    <section id="installation" class="installation">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">QUICK START</span>
+                <h2>Install Chiliz MCP in Claude Desktop</h2>
+                <p>Add blockchain superpowers to Claude in just 2 minutes</p>
+            </div>
+
+            <!-- Platform Tabs -->
+            <div class="platform-tabs">
+                <button class="platform-tab active" onclick="showPlatform('macos')">
+                    <i data-lucide="laptop" style="width: 20px; height: 20px;"></i>
+                    <span>macOS</span>
+                </button>
+                <button class="platform-tab" onclick="showPlatform('windows')">
+                    <i data-lucide="monitor" style="width: 20px; height: 20px;"></i>
+                    <span>Windows</span>
+                </button>
+                <button class="platform-tab" onclick="showPlatform('linux')">
+                    <i data-lucide="terminal" style="width: 20px; height: 20px;"></i>
+                    <span>Linux</span>
+                </button>
+            </div>
+
+            <!-- macOS Instructions -->
+            <div class="platform-content" id="macos-content">
+                <div class="install-grid">
+                    <!-- Step 1 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">1</span>
+                            <h3>Download & Build</h3>
+                        </div>
+                        <p class="step-desc">Open Terminal and run these commands:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># Clone the Chiliz MCP repository
+git clone https://github.com/BrunoPessoa22/chiliz-mcp.git
+
+# Navigate to the directory
+cd chiliz-mcp
+
+# Install dependencies
+npm install
+
+# Build the project
+npm run build</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">2</span>
+                            <h3>Locate Config File</h3>
+                        </div>
+                        <p class="step-desc">Open Claude Desktop's configuration:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># Open config in your default editor
+open ~/Library/Application\ Support/Claude/claude_desktop_config.json
+
+# Or use nano/vim
+nano ~/Library/Application\ Support/Claude/claude_desktop_config.json</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                        <div class="tip-box">
+                            <i data-lucide="lightbulb"></i>
+                            <span>If the file doesn't exist, create it first with: <code>touch ~/Library/Application\ Support/Claude/claude_desktop_config.json</code></span>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">3</span>
+                            <h3>Add Configuration</h3>
+                        </div>
+                        <p class="step-desc">Add this to your config file:</p>
+                        <div class="code-block">
+                            <pre><code class="language-json">{
+  "mcpServers": {
+    "chiliz-mcp": {
+      "command": "node",
+      "args": ["/Users/YOUR_USERNAME/chiliz-mcp/dist/index.js"],
+      "env": {
+        "CHILIZ_RPC_URL": "https://rpc.ankr.com/chiliz",
+        "NETWORK": "mainnet"
+      }
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                        <div class="warning-box">
+                            <i data-lucide="alert-circle"></i>
+                            <span>Replace <code>YOUR_USERNAME</code> with your actual macOS username</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">4</span>
+                            <h3>Restart Claude</h3>
+                        </div>
+                        <p class="step-desc">Restart Claude Desktop to activate:</p>
+                        <div class="restart-steps">
+                            <div class="restart-step">
+                                <i data-lucide="x-circle"></i>
+                                <span>Quit Claude Desktop completely</span>
+                            </div>
+                            <div class="restart-step">
+                                <i data-lucide="refresh-cw"></i>
+                                <span>Reopen Claude Desktop</span>
+                            </div>
+                            <div class="restart-step">
+                                <i data-lucide="check-circle"></i>
+                                <span>Chiliz MCP is now active!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Windows Instructions -->
+            <div class="platform-content" id="windows-content" style="display: none;">
+                <div class="install-grid">
+                    <!-- Step 1 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">1</span>
+                            <h3>Download & Build</h3>
+                        </div>
+                        <p class="step-desc">Open Command Prompt or PowerShell:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># Clone the repository
+git clone https://github.com/BrunoPessoa22/chiliz-mcp.git
+
+# Navigate to directory
+cd chiliz-mcp
+
+# Install and build
+npm install
+npm run build</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">2</span>
+                            <h3>Open Config File</h3>
+                        </div>
+                        <p class="step-desc">Navigate to Claude's config:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash"># Open config location
+%APPDATA%\Claude\claude_desktop_config.json</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy Path</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">3</span>
+                            <h3>Add Configuration</h3>
+                        </div>
+                        <p class="step-desc">Add this configuration:</p>
+                        <div class="code-block">
+                            <pre><code class="language-json">{
+  "mcpServers": {
+    "chiliz-mcp": {
+      "command": "node",
+      "args": ["C:\\Users\\YOUR_USERNAME\\chiliz-mcp\\dist\\index.js"],
+      "env": {
+        "CHILIZ_RPC_URL": "https://rpc.ankr.com/chiliz",
+        "NETWORK": "mainnet"
+      }
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">4</span>
+                            <h3>Restart Claude</h3>
+                        </div>
+                        <p class="step-desc">Restart to activate the MCP:</p>
+                        <div class="restart-steps">
+                            <div class="restart-step">
+                                <i data-lucide="x-circle"></i>
+                                <span>Close Claude Desktop</span>
+                            </div>
+                            <div class="restart-step">
+                                <i data-lucide="refresh-cw"></i>
+                                <span>Reopen Claude Desktop</span>
+                            </div>
+                            <div class="restart-step">
+                                <i data-lucide="check-circle"></i>
+                                <span>Start using Chiliz tools!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linux Instructions -->
+            <div class="platform-content" id="linux-content" style="display: none;">
+                <div class="install-grid">
+                    <!-- Similar structure for Linux -->
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">1</span>
+                            <h3>Download & Build</h3>
+                        </div>
+                        <p class="step-desc">Open terminal and run:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">git clone https://github.com/BrunoPessoa22/chiliz-mcp.git
+cd chiliz-mcp
+npm install
+npm run build</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">2</span>
+                            <h3>Configure</h3>
+                        </div>
+                        <p class="step-desc">Edit config file:</p>
+                        <div class="code-block">
+                            <pre><code class="language-bash">nano ~/.config/Claude/claude_desktop_config.json</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">3</span>
+                            <h3>Add Config</h3>
+                        </div>
+                        <div class="code-block">
+                            <pre><code class="language-json">{
+  "mcpServers": {
+    "chiliz-mcp": {
+      "command": "node",
+      "args": ["/home/YOUR_USERNAME/chiliz-mcp/dist/index.js"],
+      "env": {
+        "CHILIZ_RPC_URL": "https://rpc.ankr.com/chiliz"
+      }
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn" onclick="copyCodeBlock(this)">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="install-card">
+                        <div class="card-header">
+                            <span class="step-number">4</span>
+                            <h3>Restart</h3>
+                        </div>
+                        <p class="step-desc">Restart Claude Desktop</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Your Installation -->
+            <div class="test-section">
+                <h3>✨ Test Your Installation</h3>
+                <p>Once installed, try these commands in Claude:</p>
+                <div class="test-examples">
+                    <div class="test-card">
+                        <code>"What's the current price of MENGO token?"</code>
+                    </div>
+                    <div class="test-card">
+                        <code>"Show me the top 5 fan tokens by market cap"</code>
+                    </div>
+                    <div class="test-card">
+                        <code>"Check liquidity pools on FanX DEX"</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="troubleshoot-section">
+                <details>
+                    <summary>
+                        <i data-lucide="help-circle"></i>
+                        Troubleshooting & Common Issues
+                    </summary>
+                    <div class="troubleshoot-content">
+                        <div class="issue">
+                            <h4>MCP not showing in Claude</h4>
+                            <p>• Make sure the path in config is absolute, not relative</p>
+                            <p>• Check that dist/index.js exists after building</p>
+                            <p>• Verify JSON syntax is correct (no trailing commas)</p>
+                        </div>
+                        <div class="issue">
+                            <h4>Build errors</h4>
+                            <p>• Ensure Node.js 18+ is installed</p>
+                            <p>• Try deleting node_modules and reinstalling</p>
+                            <p>• Check npm version with <code>npm --version</code></p>
+                        </div>
+                        <div class="issue">
+                            <h4>Connection errors</h4>
+                            <p>• Verify RPC URL is accessible</p>
+                            <p>• Check network connectivity</p>
+                            <p>• Try alternative RPC: https://spicy-rpc.chiliz.com</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
