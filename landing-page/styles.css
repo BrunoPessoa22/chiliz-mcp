@@ -1,35 +1,27 @@
 /* Chiliz MCP Landing Page Styles */
 
 :root {
-    /* Chiliz Sports Brand Colors */
-    --chiliz-red: #CD0A2A;
-    --chiliz-red-dark: #A80820;
-    --chiliz-purple: #6B2C91;
-    --chiliz-purple-dark: #4A1B63;
-    --chiliz-purple-darker: #2D0F3F;
-    --chiliz-pink: #E91E63;
-    --chiliz-pink-light: #F06292;
+    /* Chiliz Brand Colors */
+    --chiliz-red: #EE2E37;
+    --chiliz-dark-red: #CC1921;
+    --chiliz-black: #000000;
+    --chiliz-dark: #1A1A1A;
+    --chiliz-gray: #2D2D2D;
+    --chiliz-light-gray: #F5F5F5;
+    --chiliz-white: #FFFFFF;
 
     /* Functional Colors */
     --primary: var(--chiliz-red);
-    --primary-hover: var(--chiliz-red-dark);
-    --secondary: var(--chiliz-purple);
-    --accent: var(--chiliz-pink);
-
-    /* Dark theme backgrounds */
-    --background: #0D0416;
-    --background-alt: #1A0B2E;
-    --background-card: rgba(107, 44, 145, 0.08);
-    --text-primary: #FFFFFF;
-    --text-secondary: rgba(255, 255, 255, 0.85);
-    --text-muted: rgba(255, 255, 255, 0.6);
-    --border: rgba(205, 10, 42, 0.2);
+    --primary-hover: var(--chiliz-dark-red);
+    --background: var(--chiliz-white);
+    --background-alt: var(--chiliz-light-gray);
+    --text-primary: var(--chiliz-dark);
+    --text-secondary: #6B6B6B;
+    --border: #E5E5E5;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #CD0A2A 0%, #6B2C91 100%);
-    --gradient-secondary: linear-gradient(135deg, #E91E63 0%, #6B2C91 100%);
-    --gradient-bg: linear-gradient(180deg, #0D0416 0%, #1A0B2E 50%, #2D0F3F 100%);
-    --gradient-card: linear-gradient(135deg, rgba(107, 44, 145, 0.1) 0%, rgba(205, 10, 42, 0.05) 100%);
+    --gradient-primary: linear-gradient(135deg, #EE2E37 0%, #FF6B6B 100%);
+    --gradient-dark: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
 
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -57,8 +49,7 @@
 
 body {
     font-family: var(--font-primary);
-    background: var(--gradient-bg);
-    background-attachment: fixed;
+    background: var(--background);
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
@@ -75,16 +66,15 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(13, 4, 22, 0.95);
-    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     z-index: 1000;
     transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
-    background: rgba(13, 4, 22, 0.98);
-    box-shadow: 0 10px 40px rgba(107, 44, 145, 0.3);
+    box-shadow: var(--shadow-md);
 }
 
 .nav-wrapper {
@@ -220,7 +210,7 @@ body {
 .hero {
     position: relative;
     padding: 8rem 0 4rem;
-    background: transparent;
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8F8F8 100%);
     overflow: hidden;
     min-height: 90vh;
     display: flex;
@@ -321,15 +311,14 @@ body {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: var(--primary);
     color: white;
-    border: none;
 }
 
 .btn-primary:hover {
-    background: var(--gradient-secondary);
+    background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+    box-shadow: 0 10px 20px rgba(238, 46, 55, 0.3);
 }
 
 .btn-secondary {
@@ -408,7 +397,7 @@ body {
 /* Features Section */
 .features {
     padding: 5rem 0;
-    background: transparent;
+    background: white;
 }
 
 .section-header {
@@ -436,18 +425,16 @@ body {
 
 .feature-card {
     padding: 2rem;
-    background: var(--gradient-card);
-    backdrop-filter: blur(10px);
+    background: white;
     border: 1px solid var(--border);
     border-radius: 16px;
     transition: all 0.3s ease;
 }
 
 .feature-card:hover {
-    background: var(--background-card);
-    box-shadow: 0 10px 40px rgba(107, 44, 145, 0.3);
+    box-shadow: var(--shadow-xl);
     transform: translateY(-5px);
-    border-color: var(--accent);
+    border-color: var(--primary);
 }
 
 .feature-icon {
