@@ -229,28 +229,79 @@ function reinitLucide() {
 // ==================== SANDBOX FUNCTIONALITY ====================
 
 const TOOL_CONFIGS = {
+    // Price Tools
     get_token_price: {
+        category: 'Prices',
         description: 'Get current price and market data for any fan token',
         params: [
             { name: 'symbol', type: 'text', placeholder: 'PSG', required: true, description: 'Token symbol (e.g., PSG, BAR, CHZ, MENGO)' }
         ]
     },
+    get_multiple_prices: {
+        category: 'Prices',
+        description: 'Compare prices of multiple fan tokens at once',
+        params: [
+            { name: 'symbols', type: 'text', placeholder: 'PSG,BAR,MENGO', required: true, description: 'Comma-separated token symbols', isArray: true }
+        ]
+    },
+    get_market_overview: {
+        category: 'Prices',
+        description: 'Get market overview with top fan tokens by market cap',
+        params: [
+            { name: 'limit', type: 'number', placeholder: '10', required: false, description: 'Number of tokens to show (default: 10)' }
+        ]
+    },
+    get_price_history: {
+        category: 'Prices',
+        description: 'Get historical price data for a token (7 days)',
+        params: [
+            { name: 'symbol', type: 'text', placeholder: 'PSG', required: true, description: 'Token symbol' }
+        ]
+    },
+
+    // Wallet Tools
     get_wallet_balance: {
+        category: 'Wallet',
         description: 'Get CHZ balance for any wallet address on Chiliz Chain',
         params: [
             { name: 'address', type: 'text', placeholder: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb', required: true, description: 'Ethereum wallet address' }
         ]
     },
+    get_transaction: {
+        category: 'Wallet',
+        description: 'Get details of a specific transaction by hash',
+        params: [
+            { name: 'txHash', type: 'text', placeholder: '0x...', required: true, description: 'Transaction hash' }
+        ]
+    },
+
+    // Blockchain Tools
     get_blockchain_info: {
+        category: 'Blockchain',
         description: 'Get current Chiliz blockchain information and network stats',
         params: []
     },
+    get_block: {
+        category: 'Blockchain',
+        description: 'Get detailed information about a specific block',
+        params: [
+            { name: 'blockNumber', type: 'number', placeholder: '27672926', required: false, description: 'Block number (leave empty for latest)' }
+        ]
+    },
+
+    // Analytics Tools
     detect_whale_trades: {
+        category: 'Analytics',
         description: 'Detect large transactions (whale trades) in recent blocks',
         params: [
             { name: 'minValueUSD', type: 'number', placeholder: '100000', required: false, description: 'Minimum value in USD (default: 100000)' },
             { name: 'blockRange', type: 'number', placeholder: '100', required: false, description: 'Number of blocks to scan (default: 100)' }
         ]
+    },
+    get_fan_tokens_list: {
+        category: 'Analytics',
+        description: 'Get list of all supported fan tokens with metadata',
+        params: []
     }
 };
 
@@ -319,7 +370,14 @@ async function executeTool() {
                 return;
             }
             if (value) {
-                params[param.name] = param.type === 'number' ? parseFloat(value) : value;
+                if (param.isArray) {
+                    // Convert comma-separated string to array
+                    params[param.name] = value.split(',').map(s => s.trim()).filter(Boolean);
+                } else if (param.type === 'number') {
+                    params[param.name] = parseFloat(value);
+                } else {
+                    params[param.name] = value;
+                }
             }
         }
     }

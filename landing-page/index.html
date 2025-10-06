@@ -693,10 +693,24 @@ npm start</code></pre>
                     <div class="tool-selector">
                         <select id="toolSelect" onchange="updateToolParams()">
                             <option value="">Choose a tool...</option>
-                            <option value="get_token_price">Get Token Price</option>
-                            <option value="get_wallet_balance">Get Wallet Balance</option>
-                            <option value="get_blockchain_info">Get Blockchain Info</option>
-                            <option value="detect_whale_trades">Detect Whale Trades</option>
+                            <optgroup label="💰 Price Tools">
+                                <option value="get_token_price">Get Token Price</option>
+                                <option value="get_multiple_prices">Compare Multiple Prices</option>
+                                <option value="get_market_overview">Market Overview</option>
+                                <option value="get_price_history">Price History (7 days)</option>
+                            </optgroup>
+                            <optgroup label="👛 Wallet Tools">
+                                <option value="get_wallet_balance">Get Wallet Balance</option>
+                                <option value="get_transaction">Get Transaction Details</option>
+                            </optgroup>
+                            <optgroup label="⛓️ Blockchain Tools">
+                                <option value="get_blockchain_info">Get Blockchain Info</option>
+                                <option value="get_block">Get Block Details</option>
+                            </optgroup>
+                            <optgroup label="📊 Analytics Tools">
+                                <option value="detect_whale_trades">Detect Whale Trades</option>
+                                <option value="get_fan_tokens_list">Fan Tokens List</option>
+                            </optgroup>
                         </select>
                     </div>
 
@@ -737,19 +751,35 @@ npm start</code></pre>
                 <div class="examples-grid">
                     <div class="example-card" onclick="loadExample('get_token_price', {symbol: 'PSG'})">
                         <i data-lucide="trending-up" style="width: 20px; height: 20px;"></i>
-                        <span>Get PSG Token Price</span>
+                        <span>PSG Token Price</span>
+                    </div>
+                    <div class="example-card" onclick="loadExample('get_multiple_prices', {symbols: 'PSG,BAR,MENGO'})">
+                        <i data-lucide="bar-chart-2" style="width: 20px; height: 20px;"></i>
+                        <span>Compare 3 Tokens</span>
+                    </div>
+                    <div class="example-card" onclick="loadExample('get_market_overview', {limit: 8})">
+                        <i data-lucide="line-chart" style="width: 20px; height: 20px;"></i>
+                        <span>Market Overview</span>
+                    </div>
+                    <div class="example-card" onclick="loadExample('get_price_history', {symbol: 'CHZ'})">
+                        <i data-lucide="activity" style="width: 20px; height: 20px;"></i>
+                        <span>CHZ Price History</span>
                     </div>
                     <div class="example-card" onclick="loadExample('get_wallet_balance', {address: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb'})">
                         <i data-lucide="wallet" style="width: 20px; height: 20px;"></i>
-                        <span>Check Wallet Balance</span>
+                        <span>Wallet Balance</span>
                     </div>
                     <div class="example-card" onclick="loadExample('get_blockchain_info', {})">
                         <i data-lucide="database" style="width: 20px; height: 20px;"></i>
                         <span>Blockchain Stats</span>
                     </div>
+                    <div class="example-card" onclick="loadExample('get_fan_tokens_list', {})">
+                        <i data-lucide="list" style="width: 20px; height: 20px;"></i>
+                        <span>All Fan Tokens</span>
+                    </div>
                     <div class="example-card" onclick="loadExample('detect_whale_trades', {minValueUSD: 50000, blockRange: 50})">
                         <i data-lucide="fish" style="width: 20px; height: 20px;"></i>
-                        <span>Find Whale Trades</span>
+                        <span>Whale Trades</span>
                     </div>
                 </div>
             </div>

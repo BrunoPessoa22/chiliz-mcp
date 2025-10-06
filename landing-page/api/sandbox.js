@@ -14,25 +14,72 @@ const provider = new ethers.JsonRpcProvider(CHILIZ_RPC);
 
 // Whitelist of safe read-only tools
 const SAFE_TOOLS = {
+  // Price Tools
   get_token_price: {
     description: 'Get current price and market data for a fan token',
+    category: 'Prices',
     params: ['symbol'],
     handler: getTokenPrice
   },
+  get_multiple_prices: {
+    description: 'Compare prices of multiple fan tokens at once',
+    category: 'Prices',
+    params: ['symbols'],
+    handler: getMultiplePrices
+  },
+  get_market_overview: {
+    description: 'Get market overview with top fan tokens by market cap',
+    category: 'Prices',
+    params: ['limit'],
+    handler: getMarketOverview
+  },
+  get_price_history: {
+    description: 'Get historical price data for a token (7 days)',
+    category: 'Prices',
+    params: ['symbol'],
+    handler: getPriceHistory
+  },
+
+  // Wallet Tools
   get_wallet_balance: {
     description: 'Get CHZ balance for any wallet address',
+    category: 'Wallet',
     params: ['address'],
     handler: getWalletBalance
   },
+  get_transaction: {
+    description: 'Get details of a specific transaction by hash',
+    category: 'Wallet',
+    params: ['txHash'],
+    handler: getTransaction
+  },
+
+  // Blockchain Tools
   get_blockchain_info: {
     description: 'Get current Chiliz blockchain information',
+    category: 'Blockchain',
     params: [],
     handler: getBlockchainInfo
   },
+  get_block: {
+    description: 'Get detailed information about a specific block',
+    category: 'Blockchain',
+    params: ['blockNumber'],
+    handler: getBlock
+  },
+
+  // Analytics Tools
   detect_whale_trades: {
     description: 'Detect large transactions (whale trades)',
+    category: 'Analytics',
     params: ['minValueUSD', 'blockRange'],
     handler: detectWhaleTrades
+  },
+  get_fan_tokens_list: {
+    description: 'Get list of all supported fan tokens with metadata',
+    category: 'Analytics',
+    params: [],
+    handler: getFanTokensList
   }
 };
 
@@ -180,6 +227,208 @@ async function detectWhaleTrades({ minValueUSD = 100000, blockRange = 100 }) {
     minValueUSD,
     transactions: largeTxs,
     note: `Scanned ${sampleSize} most recent blocks for demo. Production version would use The Graph indexer.`
+  };
+}
+
+async function getMultiplePrices({ symbols }) {
+  if (!symbols || !Array.isArray(symbols)) {
+    throw new Error('symbols must be an array of token symbols');
+  }
+
+  const coinGeckoIds = {
+    'CHZ': 'chiliz',
+    'PSG': 'paris-saint-germain-fan-token',
+    'BAR': 'fc-barcelona-fan-token',
+    'JUV': 'juventus-fan-token',
+    'CITY': 'manchester-city-fan-token',
+    'MENGO': 'flamengo-fan-token',
+    'SCCP': 'sport-club-corinthians-paulista-fan-token',
+    'ACM': 'ac-milan-fan-token',
+    'INTER': 'inter-milan-fan-token',
+    'ATM': 'atletico-madrid-fan-token'
+  };
+
+  const ids = symbols.map(s => coinGeckoIds[s.toUpperCase()]).filter(Boolean);
+
+  if (ids.length === 0) {
+    throw new Error(`No valid tokens found. Available: ${Object.keys(coinGeckoIds).join(', ')}`);
+  }
+
+  const response = await fetch(
+    `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd&include_24hr_change=true&include_24hr_vol=true&include_market_cap=true`
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch price data from CoinGecko');
+  }
+
+  const data = await response.json();
+
+  return {
+    tokens: symbols.map(symbol => {
+      const id = coinGeckoIds[symbol.toUpperCase()];
+      const priceData = data[id];
+
+      if (!priceData) {
+        return { symbol: symbol.toUpperCase(), error: 'Not found' };
+      }
+
+      return {
+        symbol: symbol.toUpperCase(),
+        currentPrice: priceData.usd,
+        priceChange24h: priceData.usd_24h_change || 0,
+        volume24h: priceData.usd_24h_vol || 0,
+        marketCap: priceData.usd_market_cap || 0
+      };
+    }),
+    lastUpdated: new Date().toISOString()
+  };
+}
+
+async function getMarketOverview({ limit = 10 }) {
+  const topTokens = ['CHZ', 'PSG', 'BAR', 'JUV', 'CITY', 'ACM', 'MENGO', 'INTER', 'SCCP', 'ATM'];
+  const tokensToFetch = topTokens.slice(0, parseInt(limit));
+
+  const result = await getMultiplePrices({ symbols: tokensToFetch });
+
+  // Sort by market cap
+  const sorted = result.tokens
+    .filter(t => !t.error)
+    .sort((a, b) => (b.marketCap || 0) - (a.marketCap || 0));
+
+  return {
+    totalMarketCap: sorted.reduce((sum, t) => sum + (t.marketCap || 0), 0),
+    total24hVolume: sorted.reduce((sum, t) => sum + (t.volume24h || 0), 0),
+    topTokens: sorted,
+    lastUpdated: new Date().toISOString()
+  };
+}
+
+async function getPriceHistory({ symbol }) {
+  const coinGeckoIds = {
+    'CHZ': 'chiliz',
+    'PSG': 'paris-saint-germain-fan-token',
+    'BAR': 'fc-barcelona-fan-token',
+    'JUV': 'juventus-fan-token',
+    'CITY': 'manchester-city-fan-token',
+    'MENGO': 'flamengo-fan-token',
+    'SCCP': 'sport-club-corinthians-paulista-fan-token',
+    'ACM': 'ac-milan-fan-token'
+  };
+
+  const coinId = coinGeckoIds[symbol.toUpperCase()];
+  if (!coinId) {
+    throw new Error(`Token ${symbol} not found`);
+  }
+
+  const response = await fetch(
+    `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=7`
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch price history');
+  }
+
+  const data = await response.json();
+
+  // Sample data points (every 6 hours)
+  const sampledPrices = data.prices.filter((_, i) => i % 6 === 0).map(([timestamp, price]) => ({
+    timestamp: new Date(timestamp).toISOString(),
+    price: price
+  }));
+
+  return {
+    symbol: symbol.toUpperCase(),
+    period: '7 days',
+    dataPoints: sampledPrices.length,
+    prices: sampledPrices,
+    highPrice: Math.max(...data.prices.map(p => p[1])),
+    lowPrice: Math.min(...data.prices.map(p => p[1])),
+    priceChange: ((data.prices[data.prices.length - 1][1] - data.prices[0][1]) / data.prices[0][1] * 100).toFixed(2) + '%'
+  };
+}
+
+async function getTransaction({ txHash }) {
+  if (!txHash || typeof txHash !== 'string') {
+    throw new Error('Transaction hash is required');
+  }
+
+  const tx = await provider.getTransaction(txHash);
+
+  if (!tx) {
+    throw new Error('Transaction not found');
+  }
+
+  const receipt = await provider.getTransactionReceipt(txHash);
+
+  return {
+    hash: tx.hash,
+    from: tx.from,
+    to: tx.to,
+    value: tx.value.toString(),
+    valueFormatted: parseFloat(ethers.formatEther(tx.value)),
+    gasPrice: tx.gasPrice ? tx.gasPrice.toString() : '0',
+    gasLimit: tx.gasLimit.toString(),
+    nonce: tx.nonce,
+    blockNumber: tx.blockNumber,
+    blockHash: tx.blockHash,
+    status: receipt ? (receipt.status === 1 ? 'success' : 'failed') : 'pending',
+    gasUsed: receipt ? receipt.gasUsed.toString() : null,
+    timestamp: tx.blockNumber ? (await provider.getBlock(tx.blockNumber)).timestamp : null
+  };
+}
+
+async function getBlock({ blockNumber }) {
+  const blockNum = blockNumber ? parseInt(blockNumber) : await provider.getBlockNumber();
+
+  const block = await provider.getBlock(blockNum, false);
+
+  if (!block) {
+    throw new Error(`Block ${blockNum} not found`);
+  }
+
+  return {
+    number: block.number,
+    hash: block.hash,
+    parentHash: block.parentHash,
+    timestamp: block.timestamp,
+    timestampFormatted: new Date(block.timestamp * 1000).toISOString(),
+    transactions: block.transactions.length,
+    gasUsed: block.gasUsed.toString(),
+    gasLimit: block.gasLimit.toString(),
+    miner: block.miner,
+    difficulty: block.difficulty.toString(),
+    size: block.transactions.length
+  };
+}
+
+async function getFanTokensList() {
+  const fanTokens = [
+    { symbol: 'CHZ', name: 'Chiliz', type: 'Native Token' },
+    { symbol: 'PSG', name: 'Paris Saint-Germain Fan Token', type: 'European Football' },
+    { symbol: 'BAR', name: 'FC Barcelona Fan Token', type: 'European Football' },
+    { symbol: 'JUV', name: 'Juventus Fan Token', type: 'European Football' },
+    { symbol: 'CITY', name: 'Manchester City Fan Token', type: 'European Football' },
+    { symbol: 'ACM', name: 'AC Milan Fan Token', type: 'European Football' },
+    { symbol: 'INTER', name: 'Inter Milan Fan Token', type: 'European Football' },
+    { symbol: 'ATM', name: 'Atletico Madrid Fan Token', type: 'European Football' },
+    { symbol: 'MENGO', name: 'Flamengo Fan Token', type: 'Brazilian Football' },
+    { symbol: 'SCCP', name: 'Corinthians Fan Token', type: 'Brazilian Football' },
+    { symbol: 'GAL', name: 'Galatasaray Fan Token', type: 'European Football' },
+    { symbol: 'UFC', name: 'UFC Fan Token', type: 'Sports/Fighting' },
+    { symbol: 'OG', name: 'OG Fan Token', type: 'Esports' },
+    { symbol: 'NAVI', name: 'Natus Vincere Fan Token', type: 'Esports' }
+  ];
+
+  return {
+    totalTokens: fanTokens.length,
+    tokens: fanTokens,
+    categories: {
+      'European Football': fanTokens.filter(t => t.type === 'European Football').length,
+      'Brazilian Football': fanTokens.filter(t => t.type === 'Brazilian Football').length,
+      'Esports': fanTokens.filter(t => t.type === 'Esports').length,
+      'Sports/Fighting': fanTokens.filter(t => t.type === 'Sports/Fighting').length
+    }
   };
 }
 
