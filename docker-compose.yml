@@ -5,24 +5,104 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: chiliz-mcp-server
-    env_file:
-      - .env
+    container_name: chiliz-mcp
+    restart: unless-stopped
     environment:
       - NODE_ENV=production
-    stdin_open: true
-    tty: true
-    restart: unless-stopped
+      - CHILIZ_RPC_URL=${CHILIZ_RPC_URL:-https://rpc.ankr.com/chiliz}
+      - CHILIZ_WSS_URL=${CHILIZ_WSS_URL:-wss://rpc.ankr.com/chiliz/ws}
+      - NETWORK=${NETWORK:-mainnet}
+      - PRIVATE_KEY=${PRIVATE_KEY}
+      - COINGECKO_API_KEY=${COINGECKO_API_KEY}
+      - ONEINCH_API_KEY=${ONEINCH_API_KEY}
+      - CACHE_ENABLED=${CACHE_ENABLED:-true}
+      - CACHE_TTL=${CACHE_TTL:-300}
+      - RATE_LIMIT_ENABLED=${RATE_LIMIT_ENABLED:-true}
+      - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-100}
+      - MONITORING_ENABLED=${MONITORING_ENABLED:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - METRICS_PORT=9090
+      - REDIS_URL=redis://redis:6379
+    ports:
+      - "9090:9090"  # Metrics/monitoring port
     volumes:
-      # Optional: Mount for persistent cache
-      - chiliz-cache:/app/.cache
+      - mcp-data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - redis
     networks:
       - chiliz-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:9090/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    container_name: chiliz-mcp-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - chiliz-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # Optional: Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: chiliz-mcp-prometheus
+    restart: unless-stopped
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - chiliz-network
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    profiles:
+      - monitoring
+
+  # Optional: Grafana for metrics visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: chiliz-mcp-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - chiliz-network
+    depends_on:
+      - prometheus
+    profiles:
+      - monitoring
+
+volumes:
+  mcp-data:
+    driver: local
+  redis-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
 
 networks:
   chiliz-network:
     driver: bridge
-
-volumes:
-  chiliz-cache:
-    driver: local

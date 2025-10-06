@@ -12,6 +12,10 @@
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "test": "jest",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "clean": "rm -rf dist",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test && npm run build"
@@ -34,7 +38,9 @@
     "ethers": "^6.13.1",
     "node-cache": "^5.1.2",
     "dotenv": "^16.4.5",
-    "solc": "^0.8.21"
+    "solc": "^0.8.21",
+    "zod": "^3.22.4",
+    "ioredis": "^5.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
