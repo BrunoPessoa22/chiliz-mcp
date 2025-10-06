@@ -150,15 +150,15 @@
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
-                        <div class="stat-number">23+</div>
+                        <div class="stat-number">51+</div>
                         <div class="stat-label">Tools</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">30+</div>
+                        <div class="stat-number">45+</div>
                         <div class="stat-label">Fan Tokens</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-number">5</div>
+                        <div class="stat-number">8</div>
                         <div class="stat-label">API Integrations</div>
                     </div>
                     <div class="stat">
@@ -277,7 +277,7 @@
         <div class="container">
             <div class="section-header">
                 <div class="fanx-badge">
-                    <span class="badge-icon">🔄</span>
+                    <span class="badge-icon"><i data-lucide="repeat" style="width: 16px; height: 16px;"></i></span>
                     <span>DEX Integration</span>
                 </div>
                 <h2><span class="gradient-text">FanX DEX</span> Integration & Liquidity Tools</h2>
@@ -286,7 +286,7 @@
 
             <div class="dex-features">
                 <div class="dex-card">
-                    <div class="dex-icon">💧</div>
+                    <div class="dex-icon"><i data-lucide="droplet" style="width: 32px; height: 32px;"></i></div>
                     <h3>Liquidity Pools</h3>
                     <ul class="dex-list">
                         <li>Real-time pool analytics</li>
@@ -297,7 +297,7 @@
                 </div>
 
                 <div class="dex-card">
-                    <div class="dex-icon">🔁</div>
+                    <div class="dex-icon"><i data-lucide="repeat" style="width: 32px; height: 32px;"></i></div>
                     <h3>Smart Routing</h3>
                     <ul class="dex-list">
                         <li>Optimal swap paths</li>
@@ -339,6 +339,77 @@
                     <div class="pair-item">$CHZ/$SPFC</div>
                     <div class="pair-item">$CHZ/$SCCP</div>
                     <div class="pair-item">$PSG/$BAR</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Contract Deployment Section -->
+    <section class="deployment">
+        <div class="container">
+            <div class="section-header">
+                <h2><span class="gradient-text">Smart Contract</span> Deployment</h2>
+                <p>Deploy ERC-20 tokens, NFT collections, and custom contracts directly to Chiliz blockchain</p>
+            </div>
+
+            <div class="deployment-features">
+                <div class="deployment-card">
+                    <div class="deployment-icon"><i data-lucide="coins" style="width: 32px; height: 32px;"></i></div>
+                    <h3>ERC-20 Tokens</h3>
+                    <ul class="deployment-list">
+                        <li>Deploy custom fan tokens</li>
+                        <li>OpenZeppelin security standards</li>
+                        <li>Mintable by owner</li>
+                        <li>18 decimals standard</li>
+                    </ul>
+                    <div class="code-example">
+                        <code>deploy_erc20_token({ name, symbol, initialSupply })</code>
+                    </div>
+                </div>
+
+                <div class="deployment-card">
+                    <div class="deployment-icon"><i data-lucide="image" style="width: 32px; height: 32px;"></i></div>
+                    <h3>NFT Collections</h3>
+                    <ul class="deployment-list">
+                        <li>ERC-721 standard compliance</li>
+                        <li>Batch minting support</li>
+                        <li>URI storage for metadata</li>
+                        <li>Max supply enforcement</li>
+                    </ul>
+                    <div class="code-example">
+                        <code>deploy_nft_collection({ name, symbol, maxSupply, baseURI })</code>
+                    </div>
+                </div>
+
+                <div class="deployment-card">
+                    <div class="deployment-icon"><i data-lucide="file-code" style="width: 32px; height: 32px;"></i></div>
+                    <h3>Custom Contracts</h3>
+                    <ul class="deployment-list">
+                        <li>Deploy any Solidity contract</li>
+                        <li>On-the-fly compilation</li>
+                        <li>OpenZeppelin imports</li>
+                        <li>Gas optimization enabled</li>
+                    </ul>
+                    <div class="code-example">
+                        <code>deploy_custom_contract({ sourceCode, contractName, args })</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="deployment-security">
+                <div class="security-badge">
+                    <i data-lucide="shield-check" style="width: 24px; height: 24px; color: #4CAF50;"></i>
+                    <div>
+                        <h4>Secure by Default</h4>
+                        <p>All contracts use OpenZeppelin libraries and are optimized for gas efficiency</p>
+                    </div>
+                </div>
+                <div class="security-badge">
+                    <i data-lucide="lock" style="width: 24px; height: 24px; color: #2196F3;"></i>
+                    <div>
+                        <h4>Network Validation</h4>
+                        <p>Automatic verification ensures deployment only to Chiliz mainnet or testnet</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -843,6 +914,15 @@ console.log(`Trending: ${sentiment.trending ? 'YES (HOT)' : 'No'}`);</code></pre
                 </div>
 
                 <div class="category">
+                    <h3><i data-lucide="file-code" style="width: 20px; height: 20px; vertical-align: middle;"></i> Smart Contract Deployment</h3>
+                    <ul class="tool-list">
+                        <li>deploy_erc20_token</li>
+                        <li>deploy_nft_collection</li>
+                        <li>deploy_custom_contract</li>
+                    </ul>
+                </div>
+
+                <div class="category">
                     <h3><i data-lucide="bar-chart-3" style="width: 20px; height: 20px; vertical-align: middle;"></i> Analytics Tools</h3>
                     <ul class="tool-list">
                         <li>detect_whale_trades</li>
@@ -882,44 +962,9 @@ console.log(`Trending: ${sentiment.trending ? 'YES (HOT)' : 'No'}`);</code></pre
                 <p>Full support for 45+ official fan tokens worldwide</p>
             </div>
 
-            <!-- Brazilian Tokens Featured -->
+            <!-- Football Clubs -->
             <div class="token-category">
-                <h3>🇧🇷 Brazilian Football Clubs</h3>
-                <div class="tokens-grid brazilian">
-                    <div class="token-item featured">
-                        <span class="token-symbol">$MENGO</span>
-                        <span class="token-name">Flamengo</span>
-                    </div>
-                    <div class="token-item featured">
-                        <span class="token-symbol">$SCCP</span>
-                        <span class="token-name">Corinthians</span>
-                    </div>
-                    <div class="token-item featured">
-                        <span class="token-symbol">$SPFC</span>
-                        <span class="token-name">São Paulo FC</span>
-                    </div>
-                    <div class="token-item">
-                        <span class="token-symbol">$GALO</span>
-                        <span class="token-name">Atlético Mineiro</span>
-                    </div>
-                    <div class="token-item">
-                        <span class="token-symbol">$VASCO</span>
-                        <span class="token-name">Vasco da Gama</span>
-                    </div>
-                    <div class="token-item">
-                        <span class="token-symbol">$VERDAO</span>
-                        <span class="token-name">Palmeiras</span>
-                    </div>
-                    <div class="token-item">
-                        <span class="token-symbol">$FLU</span>
-                        <span class="token-name">Fluminense</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- European Tokens -->
-            <div class="token-category">
-                <h3><i data-lucide="trophy" style="width: 20px; height: 20px; vertical-align: middle;"></i> European Football Clubs</h3>
+                <h3><i data-lucide="trophy" style="width: 20px; height: 20px; vertical-align: middle;"></i> Football Clubs</h3>
                 <div class="tokens-grid">
                     <div class="token-item">
                         <span class="token-symbol">$PSG</span>
@@ -952,6 +997,14 @@ console.log(`Trending: ${sentiment.trending ? 'YES (HOT)' : 'No'}`);</code></pre
                     <div class="token-item">
                         <span class="token-symbol">$ATM</span>
                         <span class="token-name">Atletico Madrid</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">$MENGO</span>
+                        <span class="token-name">Flamengo</span>
+                    </div>
+                    <div class="token-item">
+                        <span class="token-symbol">$SCCP</span>
+                        <span class="token-name">Corinthians</span>
                     </div>
                 </div>
             </div>
