@@ -33,6 +33,60 @@ Support for major Chiliz fan tokens including:
 - APY calculations
 - Impermanent loss tracking
 
+### 🔐 Enterprise Security
+- **KeyManager**: AES-256-GCM encrypted private key storage
+- **TransactionSigner**: Secure transaction signing with confirmation callbacks
+- **Key Rotation**: Support for multiple encrypted keys with ID-based management
+- **Environment Protection**: Secure key handling from environment or encrypted storage
+
+### 🔄 Advanced Error Handling & Resilience
+- **Automatic Retry**: Exponential backoff for transient failures
+- **Circuit Breaker**: Fast-fail pattern for persistent errors
+- **Custom Error Types**: Comprehensive error hierarchy (NetworkError, RPCError, ValidationError, etc.)
+- **Error Context**: Detailed error information with retryable status and metadata
+
+### ⚡ Real-time Streaming
+- **PriceStream**: Live price updates with WebSocket auto-reconnection
+- **Whale Alerts**: Configurable threshold for large transaction notifications
+- **DEX Activity**: Real-time swap and liquidity event monitoring
+- **Event-Driven**: EventEmitter-based architecture for flexible subscriptions
+
+### 🔄 1inch DEX Aggregation
+- **Multi-DEX Routing**: Find best prices across multiple DEXes
+- **Swap Optimization**: Automatic path finding for optimal execution
+- **Gas Estimation**: Pre-execution cost analysis
+- **Token Approvals**: Simplified approval transaction generation
+
+### 📊 Advanced Analytics Tools
+- **GasEstimator**: Real-time gas price recommendations (slow/standard/fast)
+- **Transaction Cost Analysis**: Comprehensive cost breakdowns with network congestion detection
+- **PortfolioTracker**: Complete portfolio analytics with ROI, diversity scores, and performance metrics
+- **Portfolio Comparison**: Multi-wallet analysis and benchmarking
+
+### 🧪 Production-Ready Testing
+- **Jest Framework**: Comprehensive unit and integration tests
+- **70% Coverage Target**: Enforced code coverage thresholds
+- **ESM Support**: Modern JavaScript module testing
+- **CI Integration**: Automated testing on every commit
+
+### 🚀 CI/CD Pipelines
+- **Automated Testing**: Matrix testing across Node 18.x and 20.x
+- **Build Verification**: TypeScript compilation and type checking
+- **Automated Publishing**: npm and GitHub Packages deployment on release
+- **Release Automation**: Changelog generation and GitHub releases
+
+### 📈 Monitoring & Observability
+- **Telemetry System**: Comprehensive metrics collection (requests, errors, response times)
+- **Performance Tracking**: p95/p99 response time monitoring
+- **Health Checks**: Automated system health status
+- **Prometheus Export**: Standard metrics format for monitoring tools
+
+### 🐳 Production Deployment
+- **Docker Support**: Multi-stage optimized builds
+- **Docker Compose**: Full stack with Redis, Prometheus, and Grafana
+- **Health Checks**: Container health monitoring
+- **Non-root User**: Security-hardened container execution
+
 ## Installation
 
 ### Quick Start
@@ -136,6 +190,21 @@ npm install -g chiliz-mcp
 - `analyze_token_velocity` - Trading volume analysis
 - `detect_unusual_patterns` - Anomaly detection
 - `get_liquidity_metrics` - DEX liquidity analytics
+- `estimate_gas` - Advanced gas estimation with cost analysis
+- `get_gas_price_recommendations` - Get slow/standard/fast gas prices
+- `analyze_transaction_cost` - Comprehensive transaction cost breakdown
+- `calculate_optimal_gas_price` - Calculate optimal gas by urgency
+- `track_portfolio` - Track portfolio value and analytics
+- `get_portfolio_performance` - ROI and performance metrics
+- `get_portfolio_diversity` - Diversity score and recommendations
+- `compare_portfolios` - Compare multiple wallet portfolios
+
+### 1inch DEX Tools
+- `get_1inch_quote` - Get swap quote from 1inch aggregator
+- `get_1inch_swap` - Get swap transaction data
+- `get_1inch_tokens` - List supported tokens
+- `get_1inch_liquidity_sources` - Get available DEX sources
+- `find_best_route` - Find optimal swap route across DEXes
 
 ### Social & Sports Tools
 - `get_social_sentiment` - Twitter/Reddit sentiment
@@ -161,16 +230,38 @@ chiliz-mcp/
 ├── src/
 │   ├── tools/         # MCP tool implementations
 │   ├── api/           # External API clients
+│   ├── security/      # KeyManager & TransactionSigner
+│   ├── errors/        # Error handling & retry logic
+│   ├── streaming/     # Real-time PriceStream
+│   ├── dex/           # 1inch DEX integration
+│   ├── monitoring/    # Telemetry & metrics
+│   ├── config/        # Configuration & validation
 │   ├── types/         # TypeScript definitions
 │   └── index.ts       # Main MCP server
+├── tests/
+│   ├── unit/          # Unit tests
+│   └── integration/   # Integration tests
+├── .github/workflows/ # CI/CD pipelines
+├── docs/              # Documentation
 ├── landing-page/      # Documentation website
-├── tests/             # Test suites
-└── examples/          # Usage examples
+└── Dockerfile         # Docker deployment
 ```
 
 ### Running Tests
 ```bash
+# Run all tests
 npm test
+
+# Run unit tests only
+npm run test:unit
+
+# Run integration tests only
+npm run test:integration
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate coverage report
 npm run test:coverage
 ```
 
@@ -197,9 +288,36 @@ npx vercel
 
 ### Docker Deployment
 
+**Using Docker Compose (Recommended)**:
 ```bash
+# Start all services (MCP + Redis)
+docker-compose up -d
+
+# Start with monitoring stack (includes Prometheus + Grafana)
+docker-compose --profile monitoring up -d
+
+# View logs
+docker-compose logs -f chiliz-mcp
+
+# Stop all services
+docker-compose down
+```
+
+**Using Docker directly**:
+```bash
+# Build image
 docker build -t chiliz-mcp .
-docker run -d --name chiliz-mcp -p 3000:3000 chiliz-mcp
+
+# Run container
+docker run -d --name chiliz-mcp \
+  -p 9090:9090 \
+  -e CHILIZ_RPC_URL=https://rpc.ankr.com/chiliz \
+  -e NETWORK=mainnet \
+  chiliz-mcp
+
+# Check health
+docker ps
+docker logs chiliz-mcp
 ```
 
 ## Documentation
@@ -247,12 +365,23 @@ const nft = await mcp.callTool('deploy_nft_collection', {
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### Priority Areas
-- High Priority: 1inch DEX integration
-- High Priority: WebSocket real-time updates
-- Medium Priority: Historical data storage
-- Medium Priority: NFT support
-- Low Priority: Documentation improvements
+### Recently Completed ✅
+- ✅ 1inch DEX integration
+- ✅ WebSocket real-time updates
+- ✅ Advanced error handling & retry logic
+- ✅ Security features (KeyManager, TransactionSigner)
+- ✅ Portfolio tracking & analytics
+- ✅ Testing suite with 70% coverage
+- ✅ CI/CD pipelines
+- ✅ Docker deployment
+- ✅ Monitoring & telemetry
+
+### Current Priority Areas
+- **High Priority**: Multi-chain support (expand beyond Chiliz)
+- **High Priority**: GraphQL API layer
+- **Medium Priority**: Historical data storage & analytics
+- **Medium Priority**: Advanced NFT marketplace integration
+- **Low Priority**: UI dashboard for monitoring
 
 ## License
 
