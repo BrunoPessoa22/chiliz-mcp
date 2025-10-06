@@ -123,8 +123,6 @@ export const FAN_TOKENS: FanToken[] = [
   { symbol: 'VASCO', name: 'Vasco da Gama Fan Token', coingeckoId: 'vasco-da-gama-fan-token' },
   { symbol: 'VERDAO', name: 'Palmeiras Fan Token', coingeckoId: 'palmeiras-fan-token' },
   { symbol: 'FLU', name: 'Fluminense Fan Token', coingeckoId: 'fluminense-fan-token' },
-  { symbol: 'CAP', name: 'Athletico Paranaense Fan Token', coingeckoId: 'athletico-paranaense-fan-token' },
-  { symbol: 'FOR', name: 'Fortaleza Fan Token', coingeckoId: 'fortaleza-fan-token' },
 
   // South American
   { symbol: 'CAI', name: 'Club Atletico Independiente Fan Token', coingeckoId: 'club-atletico-independiente-fan-token' },

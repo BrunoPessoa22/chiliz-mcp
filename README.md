@@ -28,8 +28,6 @@ Complete support for official Chiliz Brazilian football club tokens:
 - Palmeiras (VERDAO)
 - Fluminense (FLU)
 - Vasco da Gama (VASCO)
-- Athletico Paranaense (CAP)
-- Fortaleza (FOR)
 
 ### FanX DEX Integration
 - Liquidity pool analytics
