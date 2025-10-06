@@ -8,8 +8,9 @@ export const config = {
   network: process.env.NETWORK || 'mainnet',
 
   rpc: {
-    url: process.env.CHILIZ_RPC_URL || 'https://spicy-rpc.chiliz.com/',
-    testnetUrl: 'https://spicy-rpc-testnet.chiliz.com/'
+    url: process.env.CHILIZ_RPC_URL || 'https://rpc.ankr.com/chiliz',
+    testnetUrl: 'https://spicy-rpc-testnet.chiliz.com/',
+    websocket: process.env.CHILIZ_WSS_URL || 'wss://rpc.ankr.com/chiliz/ws'
   },
 
   coingecko: {
@@ -58,8 +59,8 @@ export const config = {
 export const CHAIN_CONFIG = {
   mainnet: {
     chainId: 88888,
-    name: 'Chiliz Chain Mainnet',
-    rpcUrl: 'https://spicy-rpc.chiliz.com/',
+    name: 'Chiliz Chain Mainnet (Spicy)',
+    rpcUrl: 'https://rpc.ankr.com/chiliz',
     explorerUrl: 'https://chiliscan.com',
     nativeCurrency: {
       name: 'Chiliz',

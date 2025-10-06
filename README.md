@@ -11,6 +11,7 @@ Advanced Model Context Protocol (MCP) server for the Chiliz blockchain ecosystem
 - **Wallet Management**: Balance checking, transaction history, portfolio analytics
 - **Transaction Capabilities**: Send CHZ, swap tokens, approve spending
 - **Blockchain Analytics**: Network stats, gas prices, block explorer integration
+- **WebSocket Monitoring**: Real-time block updates, pending transactions, contract events
 
 ### Advanced Analytics
 - **Smart Money Tracking**: Whale movements, unusual patterns detection
@@ -19,12 +20,16 @@ Advanced Model Context Protocol (MCP) server for the Chiliz blockchain ecosystem
 - **Sports Correlation**: Team performance impact on token prices
 
 ### Brazilian Market Focus
-Complete support for all Brazilian football club tokens:
+Complete support for official Chiliz Brazilian football club tokens:
 - Flamengo (MENGO)
 - Corinthians (SCCP)
-- Santos (SANTOS)
 - São Paulo (SPFC)
-- And 10+ more Brazilian clubs
+- Atlético Mineiro (GALO)
+- Palmeiras (VERDAO)
+- Fluminense (FLU)
+- Vasco da Gama (VASCO)
+- Athletico Paranaense (CAP)
+- Fortaleza (FOR)
 
 ### FanX DEX Integration
 - Liquidity pool analytics
@@ -95,6 +100,7 @@ npm install -g chiliz-mcp
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `CHILIZ_RPC_URL` | Chiliz mainnet RPC endpoint | `https://rpc.ankr.com/chiliz` |
+| `CHILIZ_WSS_URL` | WebSocket endpoint for real-time monitoring | `wss://rpc.ankr.com/chiliz/ws` |
 | `NETWORK` | Network to connect to | `mainnet` or `testnet` |
 | `COINGECKO_API_KEY` | CoinGecko API key (optional) | Your API key |
 
@@ -134,6 +140,17 @@ npm install -g chiliz-mcp
 - `get_social_sentiment` - Twitter/Reddit sentiment
 - `get_team_performance` - Sports results correlation
 - `analyze_fan_engagement` - Community metrics
+
+### WebSocket Real-time Monitoring
+- `start_block_monitoring` - Monitor new blocks in real-time
+- `start_log_monitoring` - Track contract events/logs
+- `start_pending_tx_monitoring` - Watch pending transactions
+- `monitor_fan_token_transfers` - Real-time token transfer alerts
+- `get_recent_blocks` - Retrieve recent block history
+- `get_recent_logs` - Get recent contract events
+- `get_recent_pending_transactions` - View pending tx pool
+- `get_websocket_status` - Check connection status
+- `stop_all_monitoring` - Stop all real-time subscriptions
 
 ## 💻 Development
 

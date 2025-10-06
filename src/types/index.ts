@@ -96,12 +96,12 @@ export interface APIError {
 // Fan token mapping
 export const FAN_TOKENS: FanToken[] = [
   // Native Token
-  { symbol: 'CHZ', name: 'Chiliz', coingeckoId: 'chiliz' },
+  { symbol: 'CHZ', name: 'Chiliz', coingeckoId: 'chiliz', address: '0x0000000000000000000000000000000000000000' },
 
   // European Football
-  { symbol: 'PSG', name: 'Paris Saint-Germain Fan Token', coingeckoId: 'paris-saint-germain-fan-token' },
-  { symbol: 'JUV', name: 'Juventus Fan Token', coingeckoId: 'juventus-fan-token' },
-  { symbol: 'BAR', name: 'FC Barcelona Fan Token', coingeckoId: 'fc-barcelona-fan-token' },
+  { symbol: 'PSG', name: 'Paris Saint-Germain Fan Token', coingeckoId: 'paris-saint-germain-fan-token', address: '0x' },
+  { symbol: 'JUV', name: 'Juventus Fan Token', coingeckoId: 'juventus-fan-token', address: '0x' },
+  { symbol: 'BAR', name: 'FC Barcelona Fan Token', coingeckoId: 'fc-barcelona-fan-token', address: '0x' },
   { symbol: 'CITY', name: 'Manchester City Fan Token', coingeckoId: 'manchester-city-fan-token' },
   { symbol: 'GAL', name: 'Galatasaray Fan Token', coingeckoId: 'galatasaray-fan-token' },
   { symbol: 'ACM', name: 'AC Milan Fan Token', coingeckoId: 'ac-milan-fan-token' },
@@ -114,20 +114,15 @@ export const FAN_TOKENS: FanToken[] = [
   { symbol: 'YBO', name: 'Young Boys Fan Token', coingeckoId: 'young-boys-fan-token' },
   { symbol: 'IBFK', name: 'Istanbul Basaksehir Fan Token', coingeckoId: 'istanbul-basaksehir-fan-token' },
 
-  // Brazilian Football - Major Clubs
+  // Brazilian Football - Major Clubs (Official Chiliz Fan Tokens Only)
   { symbol: 'MENGO', name: 'Flamengo Fan Token', coingeckoId: 'flamengo-fan-token' },
   { symbol: 'SCCP', name: 'Corinthians Fan Token', coingeckoId: 'sport-club-corinthians-paulista-fan-token' },
-  { symbol: 'SANTOS', name: 'Santos FC Fan Token', coingeckoId: 'santos-fc-fan-token' },
   { symbol: 'SPFC', name: 'São Paulo FC Fan Token', coingeckoId: 'sao-paulo-fc-fan-token' },
   { symbol: 'CAM', name: 'Atlético Mineiro Fan Token', coingeckoId: 'atletico-mineiro-fan-token' },
   { symbol: 'GALO', name: 'Atlético Mineiro Fan Token', coingeckoId: 'clube-atletico-mineiro-fan-token' },
   { symbol: 'VASCO', name: 'Vasco da Gama Fan Token', coingeckoId: 'vasco-da-gama-fan-token' },
   { symbol: 'VERDAO', name: 'Palmeiras Fan Token', coingeckoId: 'palmeiras-fan-token' },
   { symbol: 'FLU', name: 'Fluminense Fan Token', coingeckoId: 'fluminense-fan-token' },
-  { symbol: 'BOT', name: 'Botafogo Fan Token', coingeckoId: 'botafogo-fan-token' },
-  { symbol: 'CRU', name: 'Cruzeiro Fan Token', coingeckoId: 'cruzeiro-fan-token' },
-  { symbol: 'INTER-BR', name: 'Internacional Fan Token', coingeckoId: 'internacional-fan-token' },
-  { symbol: 'GREMIO', name: 'Grêmio Fan Token', coingeckoId: 'gremio-fan-token' },
   { symbol: 'CAP', name: 'Athletico Paranaense Fan Token', coingeckoId: 'athletico-paranaense-fan-token' },
   { symbol: 'FOR', name: 'Fortaleza Fan Token', coingeckoId: 'fortaleza-fan-token' },
 
