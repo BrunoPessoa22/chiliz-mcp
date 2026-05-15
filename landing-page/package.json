@@ -1,8 +1,1 @@
-{
-  "name": "chiliz-mcp-landing",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "ethers": "^6.13.0"
-  }
-}
+{"name":"chiliz-mcp-landing","version":"0.1.0","private":true,"scripts":{"dev":"next dev","build":"next build","start":"next start","lint":"next lint"},"dependencies":{"clsx":"^2.1.0","framer-motion":"^11.0.0","lucide-react":"^0.400.0","next":"^15.5.16","react":"^18","react-dom":"^18","tailwind-merge":"^2.2.0"},"devDependencies":{"@types/node":"^20","@types/react":"^18","@types/react-dom":"^18","autoprefixer":"^10.0.1","eslint":"^8","eslint-config-next":"14.2.5","postcss":"^8","tailwindcss":"^3.4.1","typescript":"^5"}}
