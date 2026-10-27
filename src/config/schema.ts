@@ -38,7 +38,7 @@ export const SecurityConfigSchema = z.object({
 export const APIKeysSchema = z.object({
   coingecko: z.string().optional(),
   oneInch: z.string().optional(),
-  custom: z.record(z.string()).optional()
+  custom: z.record(z.string(), z.string()).optional()
 });
 
 export const MonitoringConfigSchema = z.object({
@@ -123,17 +123,17 @@ export const EnvSchema = z.object({
   ONEINCH_API_KEY: z.string().optional(),
 
   // Cache
-  CACHE_ENABLED: z.string().transform(val => val === 'true').default('true'),
-  CACHE_TTL: z.string().transform(val => parseInt(val)).default('300'),
+  CACHE_ENABLED: z.string().transform(val => val === 'true').prefault('true'),
+  CACHE_TTL: z.string().transform(val => parseInt(val)).prefault('300'),
 
   // Rate Limiting
-  RATE_LIMIT_ENABLED: z.string().transform(val => val === 'true').default('true'),
-  RATE_LIMIT_REQUESTS: z.string().transform(val => parseInt(val)).default('100'),
+  RATE_LIMIT_ENABLED: z.string().transform(val => val === 'true').prefault('true'),
+  RATE_LIMIT_REQUESTS: z.string().transform(val => parseInt(val)).prefault('100'),
 
   // Monitoring
-  MONITORING_ENABLED: z.string().transform(val => val === 'true').default('false'),
+  MONITORING_ENABLED: z.string().transform(val => val === 'true').prefault('false'),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
-  METRICS_PORT: z.string().transform(val => parseInt(val)).default('9090'),
+  METRICS_PORT: z.string().transform(val => parseInt(val)).prefault('9090'),
 
   // Environment
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development')
