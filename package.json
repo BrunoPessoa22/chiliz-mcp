@@ -39,7 +39,7 @@
     "node-cache": "^5.1.2",
     "dotenv": "^16.4.5",
     "solc": "^0.8.21",
-    "zod": "^3.22.4",
+    "zod": "^4.6.7",
     "ioredis": "^5.3.2"
   },
   "devDependencies": {
@@ -51,5 +51,8 @@
     "ts-jest": "^29.1.5",
     "@typescript-eslint/parser": "^7.16.0",
     "@typescript-eslint/eslint-plugin": "^7.16.0"
+  },
+  "overrides": {
+    "tmp": "^0.2.7"
   }
 }
