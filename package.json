@@ -51,5 +51,8 @@
     "ts-jest": "^29.1.5",
     "@typescript-eslint/parser": "^7.16.0",
     "@typescript-eslint/eslint-plugin": "^7.16.0"
+  },
+  "overrides": {
+    "tmp": "^0.2.7"
   }
 }
